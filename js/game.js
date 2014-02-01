@@ -396,7 +396,7 @@
 			if(!pode) peca();
 		}
 		
-		function esquerda(e) {
+		function esquerda() {
 			var pode = true;
 			var novo_x;
 	
@@ -423,7 +423,7 @@
 			}
 		}
 		
-		function direita(e) {
+		function direita() {
 			var pode = true;
 			var novo_x;
 	
@@ -450,8 +450,7 @@
 			}
 		}
 		
-		function gira(e) {
-			e.preventDefault();
+		function gira() {
 			var peca_caindo_pos_new = [];
 					
 			var p = peca_caindo_pos;
@@ -604,7 +603,7 @@
 		function meio2(e) {
 			e.preventDefault();
 			if(!clicou) primeiro_clique();
-			gira();
+			step();
 		}
 		
 		var clicou = false;
