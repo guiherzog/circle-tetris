@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		
+		<style>
+		body {
+			margin: 0;
+		}
+		#canvas {
+			margin: 0 auto;
+			display: block;
+			background: #efefef;
+		}
+		
+		#touch {
+			margin: 0 auto;
+			display: block;
+		}
+		</style>
+		
+		<script>
+		var largura_total = 300; //window.innerWidth;
+		var altura_total = window.innerHeight;
+	
+		
+		var touch;
+		var touch_context;
+		var last_pt = null;
+		
+		var largura = largura_total;
+		var altura_touch = altura_total / 10;
+		var altura = altura_total - altura_touch;
+		
+		function min(a, b) { return a < b ? a : b; }
+		var menor = min(largura, altura);
+		
+		var dist = largura/2;
+		
+		var blocos = [];
+		
+		
+		var jogo_w = 10;
+		var jogo_h = 17;
+		var jogo = [];
+		
+		for(var i = 0; i < jogo_h; i++) {
+			jogo[i] = [];
+			
+			for(var j = 0; j < jogo_w; j++) {
+				jogo[i][j] = '.';
+			}
+		}
+		
+		
+		function imprime_2d() {
+			var t = document.getElementById("2d");
+			t.innerHTML = '';
+			
+			for(var i = 0; i < jogo_h; i++) {
+				for(var j = 0; j < jogo_w; j++) {
+					t.innerHTML += jogo[i][j];
+				}
+				t.innerHTML += '<br>';
+			}
+		}
+		
+		
+		
+		
+		function Bloco(x, y, raio) {
+			this.x = x;
+			this.y = y;
+			this.raio = raio;
+		}
+		
+		var grossura = menor/32; // altura das pecas
+		var quantas = 10; // quantas pecas por "linha" (largura de cada será calculada automaticamente)
+		var tamanho = (Math.PI/quantas)*2; // largura das pecas
+		var peca = 4;
+		
+		
+		var resto = (largura/2 - (menor/8 + (grossura/2))) % grossura;
+		var raio_inicial = largura/2 - resto;
+		
+		switch(peca) {
+			case 1:
+			//   *
+			// ***
+			blocos[0] = new Bloco(0, 0, raio_inicial);
+			blocos[1] = new Bloco(1, 0, raio_inicial);
+			blocos[2] = new Bloco(2, 0, raio_inicial);
+			blocos[3] = new Bloco(2, 1, raio_inicial + grossura);
+			break;
+			
+			case 2:
+			//
+			// ****
+			blocos[0] = new Bloco(0, 0, raio_inicial);
+			blocos[1] = new Bloco(1, 0, raio_inicial);
+			blocos[2] = new Bloco(2, 0, raio_inicial);
+			blocos[3] = new Bloco(3, 0, raio_inicial);
+			break;
+			
+			case 3:
+			// **
+			// **
+			blocos[0] = new Bloco(0, 0, raio_inicial);
+			blocos[1] = new Bloco(1, 0, raio_inicial);
+			blocos[2] = new Bloco(0, 1, raio_inicial + grossura);
+			blocos[3] = new Bloco(1, 1, raio_inicial + grossura);
+			break;
+			
+			case 4:
+			//  *
+			// ***
+			blocos[0] = new Bloco(0, 0, raio_inicial);
+			blocos[1] = new Bloco(1, 0, raio_inicial);
+			blocos[2] = new Bloco(2, 0, raio_inicial);
+			blocos[3] = new Bloco(1, 1, raio_inicial + grossura);
+			break;
+		}
+		
+		
+		
+		function draw() {
+		
+			var canvas = document.getElementById("canvas");
+			
+			if(canvas.getContext) {
+				var context = canvas.getContext("2d");
+				context.clearRect(0, 0, largura, altura);
+				
+				// circulo central
+				context.beginPath();
+				//arc(x, y, radius, startAngle, endAngle, anticlockwise);
+				context.fillStyle = "white";
+				context.arc(largura/2, altura/2, menor/8 - 1.75, 0, 2*Math.PI, true);
+				context.fill();
+				
+				for(var i = 0; i < 4; i++) {
+					var rad_offset = (menor/8 + (grossura/2)) * 0.04 / blocos[i].raio;
+					//blocos[i].raio*0.04 / (menor/8 + (grossura/2));
+					context.beginPath();
+					context.strokeStyle = "#ec747d";
+					context.lineWidth = grossura - 1.75;
+					context.arc(largura/2, altura/2, blocos[i].raio, 2*Math.PI - (blocos[i].x)*tamanho, 2*Math.PI - (blocos[i].x+1)*tamanho + rad_offset, true);
+					context.stroke();
+				}
+			}
+		}
+		
+		document.addEventListener("DOMContentLoaded", function() {
+			var canvas = document.getElementById("canvas");
+			canvas.width = largura;
+			canvas.height = altura;
+			
+			touch = document.getElementById("touch");
+			touch.width = largura;
+			touch.height = altura_touch;
+			
+			
+			setInterval(function() {
+				draw();
+				
+				if(blocos[0].raio > menor/8 + (grossura/2)) {
+					for(var i = 0; i < 4; i++) {
+						blocos[i].raio -= grossura;
+					}
+				}
+			}, 500);
+			
+			
+			touch_context = touch.getContext("2d");
+			
+			touch.addEventListener("touchmove", function(e) {
+				e.preventDefault();
+				
+				if(last_pt != null) {
+					touch_context.beginPath();
+					touch_context.moveTo(last_pt.x, last_pt.y);
+					touch_context.lineTo(e.touches[0].pageX, e.touches[0].pageY - altura);
+					touch_context.stroke();
+				}
+				last_pt = {x:e.touches[0].pageX, y:e.touches[0].pageY - altura};
+			}, false);
+			
+			
+			
+			touch.addEventListener("touchend", function(e) {
+				e.preventDefault();
+				
+				touch_context.clearRect(0, 0, largura, altura_touch);
+				context.fill();
+				
+				last_pt = null;
+			}, false);
+			
+			
+			document.addEventListener("keypress", function(e) {
+				
+				// esquerda
+				if(e.keyCode == 37) {
+					
+				}
+				
+				// direita
+				else if(e.keyCode == 39) {
+					
+				}
+				
+			}, false);
+			
+			
+			imprime_2d();
+		});
+		</script>
+	</head>
+
+	<body>
+		<canvas id="canvas"></canvas>
+		<canvas id="touch"></canvas>
+		<pre id="2d"></pre>
+	</body>
+</html>

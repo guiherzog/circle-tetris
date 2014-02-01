@@ -1,0 +1,13 @@
+{
+  "name": "Circle Tetris",
+  "description": "Tetris Circle!",
+  "launch_path": "/index.html",
+  "icons": {
+    "128": "/icone.png"
+  },
+  "developer": {
+    "name": "Eduardo Costa & Guilherme Herzor",
+    "url": "http://your-homepage-here.org"
+  },
+  "default_locale": "en"
+}
