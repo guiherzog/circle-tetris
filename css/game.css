@@ -42,7 +42,7 @@
 
 		#pontos
 		{
-			top: 92%;
+			top: 3%;
 			left: 80%;
 			position: absolute;
 			font-family: GeoSans;
@@ -136,5 +136,18 @@
         background-color:#ff8989;
     }
 
-}
-		
+		#esq, #dir {
+			width: 50%;
+			height: 10%;
+			position: absolute;
+			bottom: 0;
+		}
+		#esq:active, #dir:active {
+			background: #ddd;
+		}
+		#esq {
+			left: 0;
+		}
+		#dir {
+			right: 0;
+		}

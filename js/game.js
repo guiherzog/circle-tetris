@@ -1,4 +1,4 @@
-		var largura_total = 300; //window.innerWidth;
+		var largura_total = window.innerWidth;
 		var altura_total = window.innerHeight;
 	
 		
@@ -269,9 +269,6 @@
 					//alert("y_min = " + y_min);
 				}
 				
-
-				
-				
 			}
 			
 			//alert("y_baixo = " + y_baixo + ", y_feedback = " + y_feedback);
@@ -283,7 +280,7 @@
 			for(var i = 0; i < peca_caindo_pos.length; i++) {
 				var x = peca_caindo_pos[i].x;
 				var y = peca_caindo_pos[i].y;
-				console.log("pus o " + i);
+				//console.log("pus o " + i);
 				peca_feedback[i] = {x: x, y: y+dif};
 			}
 			
@@ -399,196 +396,219 @@
 			if(!pode) peca();
 		}
 		
-		document.addEventListener("DOMContentLoaded", function() {
-			document.addEventListener("keypress", function(e) {
+		function esquerda(e) {
+			var pode = true;
+			var novo_x;
+	
+			for(var i = 0; i < peca_caindo_pos.length; i++) {
+				var x = peca_caindo_pos[i].x;
+				var y = peca_caindo_pos[i].y;
+		
+				novo_x = ((x-1) + jogo_w) % jogo_w;
 				
-				// esquerda
-				if(e.keyCode == 39) {
-					var pode = true;
-					var novo_x;
+				if(jogo[y][novo_x] != '.') {
+					pode = false;
+					break;
+				}
+			}
 			
-					for(var i = 0; i < peca_caindo_pos.length; i++) {
-						var x = peca_caindo_pos[i].x;
-						var y = peca_caindo_pos[i].y;
+			if(pode) {
+				for(var i = 0; i < peca_caindo_pos.length; i++) {
+					var x = peca_caindo_pos[i].x;
+		
+					novo_x = ((x-1) + jogo_w) % jogo_w;
+					peca_caindo_pos[i].x = novo_x;
+				}
+				desenha();
+			}
+		}
+		
+		function direita(e) {
+			var pode = true;
+			var novo_x;
+	
+			for(var i = 0; i < peca_caindo_pos.length; i++) {
+				var x = peca_caindo_pos[i].x;
+				var y = peca_caindo_pos[i].y;
+		
+				novo_x = (x+1) % jogo_w;
 				
-						novo_x = ((x-1) + jogo_w) % jogo_w;
-						
-						if(jogo[y][novo_x] != '.') {
-							pode = false;
+				if(jogo[y][novo_x] != '.') {
+					pode = false;
+					break;
+				}
+			}
+			
+			if(pode) {
+				for(var i = 0; i < peca_caindo_pos.length; i++) {
+					var x = peca_caindo_pos[i].x;
+		
+					novo_x = (x+1) % jogo_w;
+					peca_caindo_pos[i].x = novo_x;
+				}
+				desenha();
+			}
+		}
+		
+		function gira(e) {
+			e.preventDefault();
+			var peca_caindo_pos_new = [];
+					
+			var p = peca_caindo_pos;
+			var pn = peca_caindo_pos_new;
+			
+			for(var i = 0; i < peca_caindo_pos.length; i++) {
+				peca_caindo_pos_new[i] = {x: p[i].x, y: p[i].y};
+			}
+			
+			var pode = false;
+			
+			switch(n) {
+				//  *
+				// ***
+				case 0:
+					switch(giro) {
+						case 0:
+							pn[0] = {x: p[0].x + 2, y: p[0].y + 1};
+							pn[1] = {x: p[1].x + 1, y: p[1].y};
+							pn[2] = {x: p[2].x,     y: p[2].y - 1};
+							pn[3] = {x: p[3].x,     y: p[3].y + 1};
 							break;
-						}
+						case 1:
+							pn[0] = {x: p[0].x,     y: p[0].y - 2};
+							pn[1] = {x: p[1].x - 1, y: p[1].y - 1};
+							pn[2] = {x: p[2].x - 2, y: p[2].y};
+							pn[3] = {x: p[3].x,     y: p[3].y};
+							break;
+						case 2:
+							pn[0] = {x: p[0].x - 2, y: p[0].y};
+							pn[1] = {x: p[1].x - 1, y: p[1].y + 1};
+							pn[2] = {x: p[2].x,     y: p[2].y + 2};
+							pn[3] = {x: p[3].x,     y: p[3].y};
+							break;
+						case 3:
+							pn[0] = {x: p[0].x,     y: p[0].y + 1};
+							pn[1] = {x: p[1].x + 1, y: p[1].y};
+							pn[2] = {x: p[2].x + 2, y: p[2].y - 1};
+							pn[3] = {x: p[3].x,     y: p[3].y - 1};
+							break;
 					}
 					
-					if(pode) {
-						for(var i = 0; i < peca_caindo_pos.length; i++) {
-							var x = peca_caindo_pos[i].x;
-				
-							novo_x = ((x-1) + jogo_w) % jogo_w;
-							peca_caindo_pos[i].x = novo_x;
-						}
-						desenha();
+					pode = true;
+					break;
+				//   *
+				// ***
+				case 2:
+					switch(giro) {
+						case 0:
+							pn[0] = {x: p[0].x + 2, y: p[0].y + 1};
+							pn[1] = {x: p[1].x + 1, y: p[1].y};
+							pn[2] = {x: p[2].x,     y: p[2].y - 1};
+							pn[3] = {x: p[3].x - 1, y: p[3].y};
+							break;
+						case 1:
+							pn[0] = {x: p[0].x,     y: p[0].y - 2};
+							pn[1] = {x: p[1].x - 1, y: p[1].y - 1};
+							pn[2] = {x: p[2].x - 2, y: p[2].y};
+							pn[3] = {x: p[3].x - 1, y: p[3].y + 1};
+							break;
+						case 2:
+							pn[0] = {x: p[0].x - 2, y: p[0].y};
+							pn[1] = {x: p[1].x - 1, y: p[1].y + 1};
+							pn[2] = {x: p[2].x,     y: p[2].y + 2};
+							pn[3] = {x: p[3].x + 1, y: p[3].y + 1};
+							break;
+						case 3:
+							pn[0] = {x: p[0].x,     y: p[0].y + 1};
+							pn[1] = {x: p[1].x + 1, y: p[1].y};
+							pn[2] = {x: p[2].x + 2, y: p[2].y - 1};
+							pn[3] = {x: p[3].x + 1, y: p[3].y - 2};
+							break;
 					}
+					
+					var pode = true;
+					break;
+				// *
+				// *
+				// *
+				// *
+				case 3:
+					switch(giro) {
+						case 0:
+						case 2:
+							pn[0] = {x: p[0].x + 2, y: p[0].y - 3};
+							pn[1] = {x: p[1].x + 1, y: p[1].y - 2};
+							pn[2] = {x: p[2].x,     y: p[2].y - 1};
+							pn[3] = {x: p[3].x - 1, y: p[3].y};
+							break;
+						case 1:
+						case 3:
+							pn[0] = {x: p[0].x - 2, y: p[0].y + 3};
+							pn[1] = {x: p[1].x - 1, y: p[1].y + 2};
+							pn[2] = {x: p[2].x,     y: p[2].y + 1};
+							pn[3] = {x: p[3].x + 1, y: p[3].y};
+							break;
+					}
+					
+					pode = true;
+					break;
+			}
+			
+			pn[0].x = (pn[0].x + jogo_w) % jogo_w;
+			pn[1].x = (pn[1].x + jogo_w) % jogo_w;
+			pn[2].x = (pn[2].x + jogo_w) % jogo_w;
+			pn[3].x = (pn[3].x + jogo_w) % jogo_w;
+			
+			if(pode) {
+				for(var i = 0; i < pn.length; i++) {
+					var x = pn[i].x;
+					var y = pn[i].y;
+
+					if(y >= jogo_h || jogo[y][x] != '.') {
+						pode = false;
+						break;
+					}
+				}
+			}
+			
+			if(pode) {
+				for(var i = 0; i < pn.length; i++) {
+					p[i].x = pn[i].x;
+					p[i].y = pn[i].y;
+				}
+				giro++;
+				giro %= 4;
+				
+				desenha();
+			}
+		}
+		
+		function esquerda2(e) {
+			e.preventDefault();
+			esquerda();
+		}
+		
+		function direita2(e) {
+			e.preventDefault();
+			direita();
+		}
+		
+		document.addEventListener("DOMContentLoaded", function() {
+			document.addEventListener("keypress", function(e) {
+			
+				// esquerda
+				if(e.keyCode == 39) {
+					esquerda();
 				}
 				
 				// direita
 				else if(e.keyCode == 37) {
-					var pode = true;
-					var novo_x;
-			
-					for(var i = 0; i < peca_caindo_pos.length; i++) {
-						var x = peca_caindo_pos[i].x;
-						var y = peca_caindo_pos[i].y;
-				
-						novo_x = (x+1) % jogo_w;
-						
-						if(jogo[y][novo_x] != '.') {
-							pode = false;
-							break;
-						}
-					}
-					
-					if(pode) {
-						for(var i = 0; i < peca_caindo_pos.length; i++) {
-							var x = peca_caindo_pos[i].x;
-				
-							novo_x = (x+1) % jogo_w;
-							peca_caindo_pos[i].x = novo_x;
-						}
-						desenha();
-					}
+					direita();
 				}
 				
 				// cima
 				else if(e.keyCode == 38) {
-					var peca_caindo_pos_new = [];
-					
-					var p = peca_caindo_pos;
-					var pn = peca_caindo_pos_new;
-					
-					for(var i = 0; i < peca_caindo_pos.length; i++) {
-						peca_caindo_pos_new[i] = {x: p[i].x, y: p[i].y};
-					}
-					
-					var pode = false;
-					
-					switch(n) {
-						//  *
-						// ***
-						case 0:
-							switch(giro) {
-								case 0:
-									pn[0] = {x: p[0].x + 2, y: p[0].y + 1};
-									pn[1] = {x: p[1].x + 1, y: p[1].y};
-									pn[2] = {x: p[2].x,     y: p[2].y - 1};
-									pn[3] = {x: p[3].x,     y: p[3].y + 1};
-									break;
-								case 1:
-									pn[0] = {x: p[0].x,     y: p[0].y - 2};
-									pn[1] = {x: p[1].x - 1, y: p[1].y - 1};
-									pn[2] = {x: p[2].x - 2, y: p[2].y};
-									pn[3] = {x: p[3].x,     y: p[3].y};
-									break;
-								case 2:
-									pn[0] = {x: p[0].x - 2, y: p[0].y};
-									pn[1] = {x: p[1].x - 1, y: p[1].y + 1};
-									pn[2] = {x: p[2].x,     y: p[2].y + 2};
-									pn[3] = {x: p[3].x,     y: p[3].y};
-									break;
-								case 3:
-									pn[0] = {x: p[0].x,     y: p[0].y + 1};
-									pn[1] = {x: p[1].x + 1, y: p[1].y};
-									pn[2] = {x: p[2].x + 2, y: p[2].y - 1};
-									pn[3] = {x: p[3].x,     y: p[3].y - 1};
-									break;
-							}
-							
-							pode = true;
-							break;
-						//   *
-						// ***
-						case 2:
-							switch(giro) {
-								case 0:
-									pn[0] = {x: p[0].x + 2, y: p[0].y + 1};
-									pn[1] = {x: p[1].x + 1, y: p[1].y};
-									pn[2] = {x: p[2].x,     y: p[2].y - 1};
-									pn[3] = {x: p[3].x - 1, y: p[3].y};
-									break;
-								case 1:
-									pn[0] = {x: p[0].x,     y: p[0].y - 2};
-									pn[1] = {x: p[1].x - 1, y: p[1].y - 1};
-									pn[2] = {x: p[2].x - 2, y: p[2].y};
-									pn[3] = {x: p[3].x - 1, y: p[3].y + 1};
-									break;
-								case 2:
-									pn[0] = {x: p[0].x - 2, y: p[0].y};
-									pn[1] = {x: p[1].x - 1, y: p[1].y + 1};
-									pn[2] = {x: p[2].x,     y: p[2].y + 2};
-									pn[3] = {x: p[3].x + 1, y: p[3].y + 1};
-									break;
-								case 3:
-									pn[0] = {x: p[0].x,     y: p[0].y + 1};
-									pn[1] = {x: p[1].x + 1, y: p[1].y};
-									pn[2] = {x: p[2].x + 2, y: p[2].y - 1};
-									pn[3] = {x: p[3].x + 1, y: p[3].y - 2};
-									break;
-							}
-							
-							var pode = true;
-							break;
-						// *
-						// *
-						// *
-						// *
-						case 3:
-							switch(giro) {
-								case 0:
-								case 2:
-									pn[0] = {x: p[0].x + 2, y: p[0].y - 3};
-									pn[1] = {x: p[1].x + 1, y: p[1].y - 2};
-									pn[2] = {x: p[2].x,     y: p[2].y - 1};
-									pn[3] = {x: p[3].x - 1, y: p[3].y};
-									break;
-								case 1:
-								case 3:
-									pn[0] = {x: p[0].x - 2, y: p[0].y + 3};
-									pn[1] = {x: p[1].x - 1, y: p[1].y + 2};
-									pn[2] = {x: p[2].x,     y: p[2].y + 1};
-									pn[3] = {x: p[3].x + 1, y: p[3].y};
-									break;
-							}
-							
-							pode = true;
-							break;
-					}
-					
-					pn[0].x = (pn[0].x + jogo_w) % jogo_w;
-					pn[1].x = (pn[1].x + jogo_w) % jogo_w;
-					pn[2].x = (pn[2].x + jogo_w) % jogo_w;
-					pn[3].x = (pn[3].x + jogo_w) % jogo_w;
-					
-					if(pode) {
-						for(var i = 0; i < pn.length; i++) {
-							var x = pn[i].x;
-							var y = pn[i].y;
-		
-							if(y >= jogo_h || jogo[y][x] != '.') {
-								pode = false;
-								break;
-							}
-						}
-					}
-					
-					if(pode) {
-						for(var i = 0; i < pn.length; i++) {
-							p[i].x = pn[i].x;
-							p[i].y = pn[i].y;
-						}
-						giro++;
-						giro %= 4;
-						
-						desenha();
-					}
+					gira();
 					
 				}
 				else if(e.keyCode == 40) {
@@ -602,14 +622,19 @@
 			canvas.height = altura;
 			
 			
+			document.getElementById("esq").addEventListener("click", direita2);
+			document.getElementById("dir").addEventListener("click", esquerda2);
+			canvas.addEventListener("click", gira);
+			
 			jogando = true;
 			peca();
 			desenha();
 			intervalo = setInterval(step, 300);
+		
 			
-			
-			touch = document.getElementById("touch");
-			touch.width = largura;
-			touch.height = altura_touch;
+			var esq = document.getElementById("esq");
+			var dir = document.getElementById("dir");
+			esq.style.height = altura_touch + "px";
+			dir.style.height = altura_touch + "px";
 			
 		});
