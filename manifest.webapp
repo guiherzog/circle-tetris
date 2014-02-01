@@ -1,7 +1,7 @@
 {
   "name": "Circle Tetris",
   "version":"0.8",
-  "description": "A new way to play a Tetris game.",
+  "description": "A new way to play Tetris.",
   "launch_path": "/index.html",
   "fullscreen": "true",
   "orientation": ["portrait"],

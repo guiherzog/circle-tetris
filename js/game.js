@@ -583,15 +583,31 @@
 			}
 		}
 		
+		function primeiro_clique() {
+			document.getElementById("dir").style.background = "white";
+			document.getElementById("esq").style.background = "white";
+			clicou = true;
+		}
+		
 		function esquerda2(e) {
 			e.preventDefault();
+			if(!clicou) primeiro_clique();
 			esquerda();
 		}
 		
 		function direita2(e) {
 			e.preventDefault();
+			if(!clicou) primeiro_clique();
 			direita();
 		}
+		
+		function meio2(e) {
+			e.preventDefault();
+			if(!clicou) primeiro_clique();
+			gira();
+		}
+		
+		var clicou = false;
 		
 		document.addEventListener("DOMContentLoaded", function() {
 			document.addEventListener("keypress", function(e) {
@@ -624,6 +640,7 @@
 			
 			document.getElementById("esq").addEventListener("click", direita2);
 			document.getElementById("dir").addEventListener("click", esquerda2);
+			document.getElementById("meio").addEventListener("click", meio2);
 			canvas.addEventListener("click", gira);
 			
 			jogando = true;

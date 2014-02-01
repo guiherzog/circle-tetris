@@ -73,6 +73,7 @@
 		}
 		#gameover-title
 		{
+			font-size: 150%;
 			font-size: 8vw;
 			text-align: center;
 			line-height: 200%;
@@ -127,37 +128,54 @@
 		{
 		    margin-top:40%;
 		}
-    .menu-button
-    {
-        color: #efefef ;
-        text-align: center;
-        font-size: 200%;
-        font-size: 8vw;
-        line-height: 200%;
-        vertical-align: center;
-        background-color:#526e82;
-        vertical-align: center;
-        margin-bottom: 5%;
-        width: 50%;
-        height: 12%;
-    }
-    .menu-button:active
-    {
-        background-color:#ff8989;
-    }
+		.menu-button
+		{
+		    color: #efefef ;
+		    text-align: center;
+		    font-size: 200%;
+		    font-size: 8vw;
+		    line-height: 200%;
+		    vertical-align: center;
+		    background-color:#526e82;
+		    vertical-align: center;
+		    margin-bottom: 5%;
+		    width: 50%;
+		    height: 12%;
+		}
+		.menu-button:active
+		{
+		    background-color:#ff8989;
+		}
 
-		#esq, #dir {
-			width: 50%;
+		#esq, #dir, #meio {
+			width: 33%;
 			height: 10%;
 			position: absolute;
 			bottom: 0;
+			background: #fff;
 		}
-		#esq:active, #dir:active {
-			background: #ddd;
+		#esq:active, #dir:active, #meio:active {
+			background: #ddd !important;
 		}
 		#esq {
 			left: 0;
+			opacity: 1;
+			transition: opacity 0.25s ease-in-out;
+			background-image: url('../img/seta_esq.png');
+			background-size: 100% 100%;
 		}
 		#dir {
 			right: 0;
+			opacity: 1;
+			transition: opacity 0.25s ease-in-out;
+			background-image: url('../img/seta_dir.png');
+			background-size: 100% 100%;
+		}
+		#meio {
+			left: 33%;
+			width: 34%;
+			opacity: 1;
+			transition: opacity 0.25s ease-in-out;
+			background-image: url('../img/seta_meio.png');
+			background-size: 100% 100%;
 		}
