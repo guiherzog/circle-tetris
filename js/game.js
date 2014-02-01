@@ -11,6 +11,8 @@
 		var altura = altura_total - altura_touch;
 		
 		function min(a, b) { return a < b ? a : b; }
+		function max(a, b) { return a > b ? a : b; }
+		
 		var menor = min(largura, altura);
 		
 		var dist = largura/2;
@@ -26,16 +28,11 @@
 		var resto = (largura/2 - (menor/8 + (grossura/2))) % grossura;
 		var raio_inicial = largura/2 - resto;
 		
-		
 		function pixel_pos(x, y) {
 			return (x * (largura * 4)) + (y * 4);
 			
 		}
 		
-		
-		function min(a, b) { return a < b ? a : b; }
-		function max(a, b) { return a > b ? a : b; }
-
 		var jogo_w = quantas;
 		var jogo_h = 20;
 		var jogo = [];
@@ -87,6 +84,7 @@
 					}
 				}
 				
+				// sombra
 				for(var i = 0; i < peca_caindo_pos.length; i++) {
 					var x = peca_feedback[i].x;
 					var y = peca_feedback[i].y;
@@ -583,8 +581,8 @@
 		}
 		
 		function primeiro_clique() {
-			document.getElementById("dir").style.background = "white";
-			document.getElementById("esq").style.background = "white";
+			document.querySelector("#dir span").style.opacity = 0;
+			document.querySelector("#esq span").style.opacity = 0;
 			clicou = true;
 		}
 		
@@ -602,7 +600,6 @@
 		
 		function meio2(e) {
 			e.preventDefault();
-			if(!clicou) primeiro_clique();
 			step();
 		}
 		
@@ -626,6 +623,8 @@
 					gira();
 					
 				}
+				
+				// baixo
 				else if(e.keyCode == 40) {
 					step();
 				}
@@ -637,14 +636,17 @@
 			canvas.height = altura;
 			
 			
-			document.getElementById("esq").addEventListener("click", direita2);
-			document.getElementById("dir").addEventListener("click", esquerda2);
-			document.getElementById("meio").addEventListener("click", meio2);
+			document.getElementById("esq").addEventListener("click", direita2, false);
+			document.getElementById("dir").addEventListener("click", esquerda2, false);
+			document.getElementById("meio").addEventListener("click", meio2, false);
+			
+			
 			canvas.addEventListener("click", gira);
 			
 			jogando = true;
 			peca();
 			desenha();
+			
 			intervalo = setInterval(step, 300);
 		
 			
