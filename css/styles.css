@@ -1,0 +1,70 @@
+    *{
+      margin: 0 auto;
+      list-style: none;
+      font-family: GeoSans;
+    }
+    a{
+      text-decoration: none;
+      color: #efefef;
+    }
+    ul
+    {
+      padding: 0;
+    }
+    @font-face
+    {
+      font-family: GeoSans;
+      src: url(geosans.ttf);
+      font-weight:bold;
+    } 
+    body{
+      background-color: #efefef;
+    }
+    .logo
+    {
+      position: relative;
+      margin-top: 10%;
+      width: 50%;
+    }
+    #circle-core
+    {
+      position: absolute;
+      width: 100%;
+      display: block;
+      z-index: 1;
+    }
+    #img-logo
+    {
+      z-index: 0;
+      width: 100%;
+      display: block;
+      animation:spin 8s linear infinite;
+    }
+    @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+    nav
+    {
+        margin-top:40%;
+    }
+    .menu-button
+    {
+        color: #efefef ;
+        text-align: center;
+        font-size: 200%;
+        font-size: 8vw;
+        line-height: 200%;
+        vertical-align: center;
+        background-color:#526e82;
+        vertical-align: center;
+        margin-bottom: 5%;
+        width: 50%;
+        height: 12%;
+    }
+    .menu-button:active
+    {
+        background-color:#ff8989;
+    }
+    .menu-button a
+    {
+      display: block;
+    }
+}

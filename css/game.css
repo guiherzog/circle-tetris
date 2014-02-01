@@ -1,0 +1,140 @@
+		pre {
+			display: inline-block;
+		}
+		@font-face
+		{
+			font-family: GeoSans;
+			src: url(geosans.ttf);
+			font-weight:bold;
+		} 
+		*{
+			list-style: none;
+			font-family: GeoSans;
+		}
+		
+		#jogo {
+			position: absolute;
+			top: 0;
+			left: 0;
+			display: none;
+		}
+		
+		.topo {
+			color: red;
+		}
+		
+		body {
+			background-color: #efefef;
+			margin: 0;
+		}
+		#canvas {
+			position: relative;
+			margin: 0 auto;
+			display: block;
+			background: #efefef;
+			z-index: 1;
+		}
+		
+		#touch {
+			margin: 0 auto;
+			display: block;
+		}
+
+		#pontos
+		{
+			top: 92%;
+			left: 80%;
+			position: absolute;
+			font-family: GeoSans;
+			font-size: 7vw;
+			z-index: 2;
+		}
+		#gameover
+		{
+			display: none;
+			top:0;
+			left: 0;
+			position: absolute;
+			background-color: rgba(100,100,100,0.5);
+			width:100%;
+			height: 100%;
+			z-index: 3;
+		}
+		.gameover-container
+		{
+
+			color: #efefef;
+			position: absolute;
+			top: 30%;
+			left: 15%;
+			background-color: #5a5858;
+			height: 34%;
+			width: 70%;
+		}
+		#gameover-title
+		{
+			font-size: 8vw;
+			text-align: center;
+			line-height: 200%;
+		}
+		#gameover-score
+		{
+			font-size: 7.5vw;
+			line-height: 200%;
+			background-color: #526e82;
+			text-align: right;
+			padding-right: 5%;
+		}
+		#menu-gameover
+		{
+			font-size: 7.5vw;
+			background-color: #ffa1a9;
+
+			text-align: right;
+			width: 100%;
+			height: 37%;
+		}
+		#gameover-menu, #play-again {
+			width: 30%;
+			height: 80%;
+			padding: 5% 10%;
+			display: inline-block;
+		}
+
+		#menu-gameover div:hover{
+			background-color: white;
+
+		}
+		#gameover-menu a
+		{
+			display: block;
+			width: 100%;
+			height: 100%;
+			background-size: 100%;
+		    background-image: url('../img/gameover-menu.png');
+		}
+		nav
+    {
+        margin-top:40%;
+    }
+    .menu-button
+    {
+        color: #efefef ;
+        text-align: center;
+        font-size: 200%;
+        font-size: 8vw;
+        line-height: 200%;
+        vertical-align: center;
+        background-color:#526e82;
+        vertical-align: center;
+        margin-bottom: 5%;
+        width: 50%;
+        height: 12%;
+    }
+    .menu-button:active
+    {
+        background-color:#ff8989;
+    }
+
+}
+		

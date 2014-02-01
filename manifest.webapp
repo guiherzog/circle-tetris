@@ -1,13 +1,19 @@
 {
   "name": "Circle Tetris",
-  "description": "Tetris Circle!",
+  "version":"0.8",
+  "description": "A new way to play a Tetris game.",
   "launch_path": "/index.html",
+  "fullscreen": "true",
+  "orientation": ["portrait"],
   "icons": {
-    "128": "/icone.png"
+    "60": "/img/icon/icon_60.png",
+  "128": "/img/icon/icon_128.png"
   },
   "developer": {
-    "name": "Eduardo Costa & Guilherme Herzor",
-    "url": "http://your-homepage-here.org"
+    "name": "Guilherme Herzog & Eduardo Costa",
+    "url": "http://www.hertizog.com/circleTetris"
   },
-  "default_locale": "en"
+  
+  "default_locale": "pt-br"
+
 }
