@@ -1,5 +1,7 @@
-		var largura_total = window.innerWidth;
-		var altura_total = window.innerHeight;
+		if(!window.devicePixelRatio) window.devicePixelRatio = 1;
+		
+		var largura_total = window.innerWidth * window.devicePixelRatio;
+		var altura_total = window.innerHeight * window.devicePixelRatio;
 	
 		
 		var touch;
