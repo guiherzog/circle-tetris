@@ -152,7 +152,6 @@
 			height: 10%;
 			position: absolute;
 			bottom: 0;
-			background: #fff;
 		}
 		#esq:active, #dir:active, #meio:active {
 			background-color: #ddd !important;

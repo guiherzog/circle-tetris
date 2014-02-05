@@ -1,8 +1,7 @@
-		if(!window.devicePixelRatio) window.devicePixelRatio = 1;
+		//if(!window.devicePixelRatio) window.devicePixelRatio = 1;
 		
-		var largura_total = window.innerWidth * window.devicePixelRatio;
-		var altura_total = window.innerHeight * window.devicePixelRatio;
-	
+		var largura_total = 360; //window.innerWidth * window.devicePixelRatio;
+		var altura_total = 640; //window.innerHeight * window.devicePixelRatio;
 		
 		var touch;
 		var touch_context;
