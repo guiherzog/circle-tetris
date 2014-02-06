@@ -47,7 +47,17 @@
 			position: absolute;
 			font-family: GeoSans;
 			font-size: 7vw;
+			z-index: 2;		
+		}
+		#fps
+		{
+			top: 2%;
+			left: 4%;
+			position: absolute;
+			font-family: GeoSans;
+			font-size: 7vw;
 			z-index: 2;
+
 		}
 		#gameover
 		{
@@ -135,9 +145,7 @@
 		    font-size: 200%;
 		    font-size: 8vw;
 		    line-height: 200%;
-		    vertical-align: center;
 		    background-color:#526e82;
-		    vertical-align: center;
 		    margin-bottom: 5%;
 		    width: 50%;
 		    height: 12%;

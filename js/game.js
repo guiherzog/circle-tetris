@@ -50,6 +50,24 @@
 		var intervalo;
 		var giro = 0;
 		var cores = ["#5a5858", "#ec747d", "#41c0a9"];
+		var lastCalledTime;
+		var fps;
+
+
+		function drawFPS() {
+
+		  if(!lastCalledTime) {
+		     lastCalledTime = new Date().getTime();
+		     fps = 0;
+		     return;
+		  }
+		  delta = (new Date().getTime() - lastCalledTime)/1000;
+		  lastCalledTime = new Date().getTime();
+		  fps = parseInt(1/delta);
+
+		  var fps_div = document.getElementById("fps");
+		  fps_div.innerHTML = fps + " fps";
+		} 
 
 		function desenha_canvas() {
 		
@@ -82,6 +100,7 @@
 						context.lineWidth = grossura - 1.25;
 						context.arc(largura/2, altura/2, raio, Math.PI/2 - Math.PI/16- i*tamanho, Math.PI/2 - Math.PI/16- (i+1)*tamanho , true);
 						context.stroke();
+						context.closePath();
 					}
 				}
 				
@@ -101,6 +120,7 @@
 					context.lineWidth = grossura - 1.25;
 					context.arc(largura/2, altura/2, raio, Math.PI/2 - Math.PI/16- x*tamanho, Math.PI/2 - Math.PI/16- (x+1)*tamanho + rad_offset, true);
 					context.stroke();
+					context.closePath();	
 				}
 				
 				// peca caindo atualmente
@@ -119,13 +139,13 @@
 					context.lineWidth = grossura - 1.75;
 					context.arc(largura/2, altura/2, raio, Math.PI/2 - Math.PI/16 - x*tamanho, Math.PI/2 - Math.PI/16 - (x+1)*tamanho + rad_offset, true);
 					context.stroke();
+					context.closePath();	
 				}
 				
 			}
+			drawFPS();
 		}
-		
-		
-		
+			
 		for(var i = 0; i < jogo_h; i++) {
 			jogo[i] = [];
 			jogo2[i] = [];
@@ -242,8 +262,7 @@
 			
 			desenha_canvas();
 		}
-		
-		
+
 		function feedback() {
 			var y_baixo = 0;
 			
@@ -284,8 +303,7 @@
 			}
 			
 		}
-		function desenha_pontos()
-		{
+		function desenha_pontos(){
 			var pontos_div = document.getElementById("pontos");
 			pontos_div.innerHTML = pontos + " pts";
 		}
