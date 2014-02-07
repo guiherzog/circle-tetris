@@ -12,6 +12,11 @@
 			font-family: GeoSans;
 		}
 		
+		#canvas {
+			width: 100%;
+			height: 90%;
+		}
+		
 		#jogo {
 			position: absolute;
 			top: 0;
