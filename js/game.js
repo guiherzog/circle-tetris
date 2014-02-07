@@ -1,7 +1,8 @@
 		//if(!window.devicePixelRatio) window.devicePixelRatio = 1;
+		var dev_mode = true;
 		
-		var largura_total = 360; //window.innerWidth * window.devicePixelRatio;
-		var altura_total = 640; //window.innerHeight * window.devicePixelRatio;
+		var largura_total = dev_mode? window.innerWidth * window.devicePixelRatio : 360;
+		var altura_total = dev_mode? window.innerHeight * window.devicePixelRatio : 640;
 		
 		var touch;
 		var touch_context;
@@ -605,21 +606,41 @@
 			clicou = true;
 		}
 		
-		function esquerda2(e) {
-			e.preventDefault();
-			if(!clicou) primeiro_clique();
-			esquerda();
-		}
+		var touch_interval_ids = {"esq": -1, "dir": -1, "meio": -1};
+		var touch_action_delay = 250;
 		
-		function direita2(e) {
-			e.preventDefault();
-			if(!clicou) primeiro_clique();
-			direita();
-		}
-		
-		function meio2(e) {
-			e.preventDefault();
-			step();
+		//interface para traducao de touches para movimentos
+		//usa de timers (setInterval) para continuar a mover
+		//as pecas ate que o botao seja solto
+		function touch_interface(e) {			
+			//no primeiro touch, faz as teclas sumirem
+			if(!clicou){
+				primeiro_clique();
+			}
+			
+			//limpa os timers no inicio e final de touches
+			if(touch_interval_ids[e.currentTarget.id] != -1){ 
+				window.clearInterval(touch_interval_ids[e.currentTarget.id]);
+				touch_interval_ids[e.currentTarget.id] = -1;
+			}
+			
+			//se for o comeco de um touch, inicia e cadastra o id do timer e move
+			if(e.type == "touchstart"){
+				switch(e.currentTarget.id){
+				case "esq":
+					esquerda();
+					touch_interval_ids["esq"] = window.setInterval(esquerda, touch_action_delay);
+					break;
+				case "dir":
+					direita();
+					touch_interval_ids["dir"] = window.setInterval(direita, touch_action_delay);
+					break;
+				case "meio":
+					step();
+					touch_interval_ids["meio"] = window.setInterval(step, touch_action_delay);
+					break;
+				}
+			}
 		}
 		
 		var clicou = false;
@@ -654,11 +675,13 @@
 			canvas.width = largura;
 			canvas.height = altura;
 			
-			
-			document.getElementById("esq").addEventListener("click", direita2, false);
-			document.getElementById("dir").addEventListener("click", esquerda2, false);
-			document.getElementById("meio").addEventListener("click", meio2, false);
-			
+			document.getElementById("esq").addEventListener("touchstart", touch_interface, false);
+			document.getElementById("dir").addEventListener("touchstart", touch_interface, false);
+			document.getElementById("meio").addEventListener("touchstart", touch_interface, false);
+
+			document.getElementById("esq").addEventListener("touchend", touch_interface, false);
+			document.getElementById("dir").addEventListener("touchend", touch_interface, false);
+			document.getElementById("meio").addEventListener("touchend", touch_interface, false);
 			
 			canvas.addEventListener("click", gira);
 			
