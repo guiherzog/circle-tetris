@@ -42,7 +42,7 @@
 		
 		var peca_caindo = false;
 		var peca_caindo_pos = [];
-		var peca_feedback = [];
+		var peca_sombra = [];
 		var n;
 		var cor;
 		var orientacao;
@@ -82,8 +82,8 @@
 				
 				// sombra
 				for(var i = 0; i < peca_caindo_pos.length; i++) {
-					var x = peca_feedback[i].x;
-					var y = peca_feedback[i].y;
+					var x = peca_sombra[i].x;
+					var y = peca_sombra[i].y;
 					
 					var bloco = cor;
 					var lin = y;
@@ -252,11 +252,11 @@
 				}
 			}
 
-			feedback();
+			sombra();
 
 			for(var i = 0; i < peca_caindo_pos.length; i++) {
-					var x = peca_feedback[i].x;
-					var y = peca_feedback[i].y;
+					var x = peca_sombra[i].x;
+					var y = peca_sombra[i].y;
 					
 					jogo2[y][x] = '\/';
 			}
@@ -283,46 +283,45 @@
 			desenha_canvas_peca();
 		}
 
-		function feedback() {
-			var y_baixo = 0;
-			
+
+		function sombra() {
+
+			var menor_y = []; // menor_y[i] é o y de menor altura (= maior número, já que cresce de cima pra baixo) dentre as peças que tem x igual a i.
+	
+			var diferentes_x = [];
 			for(var i = 0; i < peca_caindo_pos.length; i++) {
 				var x = peca_caindo_pos[i].x;
 				var y = peca_caindo_pos[i].y;
-				
-				y_baixo = max(y_baixo, y);
+		
+				if(!menor_y[x]) menor_y[x] = y;
+				else menor_y[x] = max(menor_y[x], y);
+		
+				if(diferentes_x.indexOf(x) == -1) diferentes_x.push(x);
 			}
-			
-			
-			var y_feedback = jogo_h-1;
-			
+	
+	
+			var menor_variacao = jogo_h;
+	
+			for(var i = 0; i < diferentes_x.length; i++) {
+				var x = diferentes_x[i];
+				var y = menor_y[x];
+		
+		
+				var v = 0; // variação
+		
+				while(y+v+1 < jogo_h && jogo[y+v+1][x] == '.')
+					v++;
+		
+				menor_variacao = min(menor_variacao, v);
+			}
+	
 			for(var i = 0; i < peca_caindo_pos.length; i++) {
 				var x = peca_caindo_pos[i].x;
 				var y = peca_caindo_pos[i].y;
-				
-				var y_min = y;
-				if(y == y_baixo) {
-					while(y_min+1 < jogo_h && jogo[y_min+1][x] == '.') y_min++;
-					y_feedback = min(y_feedback, y_min);
-					//alert("y_min = " + y_min);
-				}
-				
+				peca_sombra[i] = {x: x, y: y+menor_variacao};
 			}
-			
-			//alert("y_baixo = " + y_baixo + ", y_feedback = " + y_feedback);
-			
-			var dif = y_feedback - y_baixo;
-			
-			//alert("dif = " + dif);
-			
-			for(var i = 0; i < peca_caindo_pos.length; i++) {
-				var x = peca_caindo_pos[i].x;
-				var y = peca_caindo_pos[i].y;
-				//console.log("pus o " + i);
-				peca_feedback[i] = {x: x, y: y+dif};
-			}
-			
 		}
+		
 		function desenha_pontos(){
 			var pontos_div = document.getElementById("pontos");
 			pontos_div.innerHTML = pontos + " pts";
