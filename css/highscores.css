@@ -3,58 +3,72 @@
 	list-style: none;
 	font-family: GeoSans;
 }
-.header
-{
+
+.header {
 	background-color: #4cd9c0;
 	width: 100%;
-	height: 25%;
-	line-height: 320%;
+	line-height: 180%;
+	text-align: right;
+	font-size: 9vw;
 }
-#back-arrow
-{
+
+.header span {
+	margin-right: 5%;
+}
+
+#back-arrow {
 	padding-left: 5%;
 	padding-top: 3%;
 	width: 10%;
 	height: 10%;
 }
-#title-highscores
-{
+
+#title-highscores {
 	padding-right: 5%;
-	float: right;
+	display: inline;
 }
 
-@font-face
-{
-  font-family: GeoSans;
-  src: url(geosans.ttf);
-  font-weight:bold;
-} 
-ul
-{
+@font-face {
+	font-family: GeoSans;
+	src: url('geosans.ttf');
+	font-weight: bold;
+}
+
+ul {
 	padding-left: 3%;
 }
-body{
+
+body {
   background-color: #efefef;
 }
 
-#name
-{
+#name {
 	font-size: 7vw;
 }
-#score
-{
+
+#score {
 	font-size: 5vw;
 	color: #999;
 }
-.highscore-item
-{
+
+.highscore-item {
 	padding: 10px;
 }
-.line-separator{
 
+.line-separator {
 	margin-top: 2%;
-	height:1px;
-	background:#CCC;
-	border-bottom:0.1% solid #999;
-
+	height: 1px;
+	background: #CCC;
+	border-bottom: 0.1% solid #999;
+}
+		
+#back-button {
+	display: block;
+	height: 100%;
+	width: 14%;
+	float: left;
+	background: url('../img/back-arrow.png') no-repeat center center / auto 50%;
+}
+#back-button:active {
+	background: white;
 }

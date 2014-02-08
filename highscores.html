@@ -1,101 +1,25 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Circle Tetris</title>
-    <link rel="stylesheet" type="text/css" href="css/highscores.css">
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-</head>
-<body>
-        <!-- 
-        <div id="fb-root"></div>
-        <script>
-        //Global variables for game
-        var playerId = "";
-        var player_name = "";
-        var playerAccessToken = "";
-
-        //Init Facebook SDK
-        window.fbAsyncInit = function() {
-        // init the FB JS SDK
-        FB.init({
-        appId : '647099882016950', // App ID from the app dashboard
-        channelUrl : '//www.hertizog.com/circle-tetris/channel.html', // Channel file for x-domain comms
-        status : true, // Check Facebook Login status
-        cookie : true, // enable cookies to allow the server to access the session
-        xfbml : true // Look for social plugins on the page
-        });
-
-        FB.Event.subscribe('auth.authResponseChange', function(response) {
-        if (response.status === 'connected') {
-	        playerAccessToken = response.authResponse.accessToken;
-	        readyToPlay();
-        } 
-        else if (response.status === 'not_authorized') 
-        {
-	        FB.login(function(response){},
-	        {scope: 'publish_actions'});
-        } 
-        else 
-        {
-    	    FB.login(function(response) {},
-    	    {scope: 'publish_actions'});
-        }
-        });
-        };
-
-        // Load the SDK asynchronously
-        (function(d){
-        var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
-        if (d.getElementById(id)) {return;}
-        js = d.createElement('script'); js.id = id; js.async = true;
-        js.src = "https://connect.facebook.net/pt_BR/all.js";
-        ref.parentNode.insertBefore(js, ref);
-        }(document));
-
-        // Here we run a very simple test of the Graph API after login is successful.
-        // This testAPI() function is only called in those cases.
-        function readyToPlay() {
-        FB.api('/me', function(response) {  
-        //Capture the userid
-        	playerId = response.id;
-        	player_name = response.name;
-
-        //Draw the game
-        //drawGame();
-        });
-        }
-        console.log(player_name);
-       // //Add in the game
-        // function drawGame() {
-        // $( ".gamespace" ).empty();
-        // $( ".gamespace" ).append("<script src='js/game.js'>");
-        // $( ".gamespace" ).append("</" + "script>");
-
-        // $( ".gamespace" ).append("<a href='index.php' onClick='FB.logout();'>Deslogar</a>");
-        // }
-
-    </script><script type="text/javascript" src="js/highscores.js"></script>
-    
-    -->
-
-    <div class="header">
-        <h1 id="title-highscores">Highscore</h1>
-        <section id="back-button"><a href="index.html"><img id="back-arrow" src="img/back-arrow.png"></a></section>
-    </div>
-    <div  class="container-itens">
-        <ul id="leaderboardDiv">
-            <li class="highscore-item">
-                <h3 id="name">Guilherme Herzog</h3>
-                <h5 id="score">31.127 pts</h5>
-                <div class="line-separator"></div>
-            </li>
-                     
-        </ul>
-    </div>
-    <div class="facebook">
-    <fb:login-button scope="user_games_activity"></fb:login-button>
-    </div>
-    
-</body>
+	<head>
+		<title>Circle Tetris</title>
+		<link rel="stylesheet" type="text/css" href="css/highscores.css">
+	</head>
 	
+	<body>
+		<h1 class="header">
+		    <a id="back-button" href="index.html"><span></span></a>
+		    <span>Highscores</span>
+		</h1>
+		
+		<div  class="container-itens">
+		    <ul id="leaderboardDiv">
+		        <li class="highscore-item">
+		            <h3 id="name">Guilherme Herzog</h3>
+		            <h5 id="score">31.127 pts</h5>
+		            <div class="line-separator"></div>
+		        </li>
+		                 
+		    </ul>
+		</div>
+	</body>
 </html>

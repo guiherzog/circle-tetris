@@ -688,12 +688,5 @@
 			peca();
 			desenha();
 			
-			intervalo = setInterval(step, 300);
-		
-			
-			var esq = document.getElementById("esq");
-			var dir = document.getElementById("dir");
-			esq.style.height = altura_touch + "px";
-			dir.style.height = altura_touch + "px";
-			
+			intervalo = setInterval(step, 300);			
 		});

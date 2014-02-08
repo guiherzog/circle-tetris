@@ -109,9 +109,8 @@
 			height: 12vw;
 		}
 		#gameover-menu, #play-again {
-			height: 100%;
-			padding: 5% 15% 1%;
-			width: 20%;
+			height: 120%;
+			width: 50%;
 			display: inline-block;
 			background: #FFA1A9;
 		}
@@ -126,18 +125,14 @@
 			display: block;
 			width: 100%;
 			height: 100%;
-			background-size: 100%;
-		    background-image: url('../img/gameover-menu.png');
-		    background-repeat: no-repeat;
+		    background: url('../img/gameover-menu.png') no-repeat center center / auto 60%;
 		}
 		#play-again a
 		{
 			display: block;
 			width: 100%;
 			height: 100%;
-			background-size: 100%;
-		    background-image: url('../img/play-again.png');
-		    background-repeat: no-repeat;
+		    background: url('../img/play-again.png') no-repeat center center / auto 60%;
 		}
 		nav
 		{
@@ -165,6 +160,7 @@
 			height: 10%;
 			position: absolute;
 			bottom: 0;
+			z-index: 2;
 		}
 		#esq:active, #dir:active, #meio:active {
 			background-color: #ddd !important;
@@ -175,7 +171,9 @@
 			display: block;
 			opacity: 1;
 			transition: opacity 0.5s ease-in-out;
-			background-size: 100% 100%;
+			background-size: auto 40%;
+			background-repeat: no-repeat;
+			
 		}
 		#esq {
 			left: 0;
@@ -183,6 +181,7 @@
 		
 		#esq span {
 			background-image: url('../img/seta_esq.png');
+			background-position: 30% center;
 		}
 		
 		#dir {
@@ -191,6 +190,7 @@
 		
 		#dir span {
 			background-image: url('../img/seta_dir.png');
+			background-position: 70% center;
 		}
 		
 		#meio {
