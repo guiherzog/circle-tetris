@@ -67,8 +67,65 @@
 
 		  var fps_div = document.getElementById("fps");
 		  fps_div.innerHTML = fps + " fps";
-		} 
-
+		}
+		
+		
+		
+		// atualiza canvas com a peça atualmente em movimento
+		function desenha_canvas_peca() {
+			var canvas = document.getElementById("peca");
+			
+			if(canvas.getContext) {
+				var context = canvas.getContext("2d");
+				context.clearRect(0, 0, largura, altura);
+				
+				
+				// sombra
+				for(var i = 0; i < peca_caindo_pos.length; i++) {
+					var x = peca_feedback[i].x;
+					var y = peca_feedback[i].y;
+					
+					var bloco = cor;
+					var lin = y;
+				
+					var raio = menor/8 + (grossura/2) + (jogo_h - lin - 1)*grossura;
+				
+					var rad_offset = (menor/8 + (grossura/2)) * 0.04 / raio;
+					context.beginPath();
+					context.strokeStyle = "#e2e2e2";
+					context.lineWidth = grossura - 1.25;
+					//context.arc(largura/2, altura/2, raio, Math.PI/2 - Math.PI/16 - x*tamanho, Math.PI/2 - Math.PI/16 - (x+1)*tamanho + rad_offset, true);
+					context.arc(largura/2, altura/2, raio, -(Math.PI/2 - Math.PI/16 - (x+1)*tamanho + rad_offset), -(Math.PI/2 - Math.PI/16 - x*tamanho), true);
+					
+					// para o movimento ficar condizente com as setas sem precisar inverter a função delas, vamos desenhar ao contrário.
+					// em vez de A a B, de -B a -A.
+					context.stroke();
+					context.closePath();	
+				}
+				
+				// peca caindo atualmente
+				for(var i = 0; i < peca_caindo_pos.length; i++) {
+					var x = peca_caindo_pos[i].x;
+					var y = peca_caindo_pos[i].y;
+					
+					var bloco = cor;
+					var lin = y;
+				
+					var raio = menor/8 + (grossura/2) + (jogo_h - lin - 1)*grossura;
+				
+					var rad_offset = (menor/8 + (grossura/2)) * 0.04 / raio;
+					context.beginPath();
+					context.strokeStyle = cores[bloco];
+					context.lineWidth = grossura - 1.75;
+					context.arc(largura/2, altura/2, raio, -(Math.PI/2 - Math.PI/16 - (x+1)*tamanho + rad_offset), -(Math.PI/2 - Math.PI/16 - x*tamanho), true);
+					context.stroke();
+					context.closePath();	
+				}
+			}
+		}
+		
+		
+		// atualiza canvas com as peças paradas
 		function desenha_canvas() {
 		
 			var canvas = document.getElementById("canvas");
@@ -98,49 +155,13 @@
 						context.beginPath();
 						context.strokeStyle = cores[bloco];
 						context.lineWidth = grossura - 1.25;
-						context.arc(largura/2, altura/2, raio, Math.PI/2 - Math.PI/16- i*tamanho, Math.PI/2 - Math.PI/16- (i+1)*tamanho , true);
+						context.arc(largura/2, altura/2, raio, -(Math.PI/2 - Math.PI/16 - (i+1)*tamanho), -(Math.PI/2 - Math.PI/16 - i*tamanho), true);
 						context.stroke();
 						context.closePath();
 					}
 				}
 				
-				// sombra
-				for(var i = 0; i < peca_caindo_pos.length; i++) {
-					var x = peca_feedback[i].x;
-					var y = peca_feedback[i].y;
-					
-					var bloco = cor;
-					var lin = y;
 				
-					var raio = menor/8 + (grossura/2) + (jogo_h - lin - 1)*grossura;
-				
-					var rad_offset = (menor/8 + (grossura/2)) * 0.04 / raio;
-					context.beginPath();
-					context.strokeStyle = "#e2e2e2";
-					context.lineWidth = grossura - 1.25;
-					context.arc(largura/2, altura/2, raio, Math.PI/2 - Math.PI/16- x*tamanho, Math.PI/2 - Math.PI/16- (x+1)*tamanho + rad_offset, true);
-					context.stroke();
-					context.closePath();	
-				}
-				
-				// peca caindo atualmente
-				for(var i = 0; i < peca_caindo_pos.length; i++) {
-					var x = peca_caindo_pos[i].x;
-					var y = peca_caindo_pos[i].y;
-					
-					var bloco = cor;
-					var lin = y;
-				
-					var raio = menor/8 + (grossura/2) + (jogo_h - lin - 1)*grossura;
-				
-					var rad_offset = (menor/8 + (grossura/2)) * 0.04 / raio;
-					context.beginPath();
-					context.strokeStyle = cores[bloco];
-					context.lineWidth = grossura - 1.75;
-					context.arc(largura/2, altura/2, raio, Math.PI/2 - Math.PI/16 - x*tamanho, Math.PI/2 - Math.PI/16 - (x+1)*tamanho + rad_offset, true);
-					context.stroke();
-					context.closePath();	
-				}
 				
 			}
 			drawFPS();
@@ -260,7 +281,7 @@
 			
 			t.innerHTML = html;
 			
-			desenha_canvas();
+			desenha_canvas_peca();
 		}
 
 		function feedback() {
@@ -310,7 +331,6 @@
 		
 		function step() {
 			
-			
 			if(!jogando) {
 				clearInterval(intervalo);
 				gameover = document.getElementById("gameover");
@@ -349,6 +369,8 @@
 					}
 					jogo[y][x] = cor;
 				}
+				
+				
 				
 				
 				// checar linhas para ver se foram completadas
@@ -405,6 +427,8 @@
 						}
 					}
 				}
+				
+				desenha_canvas();
 				
 			}
 			
@@ -605,7 +629,7 @@
 			clicou = true;
 		}
 		
-		var touch_interval_ids = {"esq": -1, "dir": -1, "meio": -1};
+		var touch_interval_ids = {"esq": -1, "dir": -1, "peca": -1};
 		var touch_action_delay = 250;
 		
 		//interface para traducao de touches para movimentos
@@ -634,9 +658,9 @@
 					direita();
 					touch_interval_ids["dir"] = window.setInterval(direita, touch_action_delay);
 					break;
-				case "meio":
+				case "peca":
 					step();
-					touch_interval_ids["meio"] = window.setInterval(step, touch_action_delay);
+					touch_interval_ids["peca"] = window.setInterval(step, touch_action_delay);
 					break;
 				}
 			}
@@ -647,45 +671,43 @@
 		document.addEventListener("DOMContentLoaded", function() {
 			document.addEventListener("keypress", function(e) {
 			
-				// esquerda
-				if(e.keyCode == 39) {
-					esquerda();
-				}
-				
 				// direita
-				else if(e.keyCode == 37) {
-					direita();
-				}
+				if(e.keyCode == 39) direita();
+				
+				// esquerda
+				else if(e.keyCode == 37) esquerda();
 				
 				// cima
-				else if(e.keyCode == 38) {
-					gira();
-					
-				}
+				else if(e.keyCode == 38) gira();
 				
 				// baixo
-				else if(e.keyCode == 40) {
-					step();
-				}
+				else if(e.keyCode == 40) step();
 				
 			}, false);
 			
 			var canvas = document.getElementById("canvas");
+			var canvas_peca = document.getElementById("peca");
 			canvas.width = largura;
 			canvas.height = altura;
 			
+			canvas_peca.width = largura;
+			canvas_peca.height = altura;
+			
 			document.getElementById("esq").addEventListener("touchstart", touch_interface, false);
 			document.getElementById("dir").addEventListener("touchstart", touch_interface, false);
-			document.getElementById("meio").addEventListener("touchstart", touch_interface, false);
+			document.getElementById("peca").addEventListener("touchstart", touch_interface, false);
 
 			document.getElementById("esq").addEventListener("touchend", touch_interface, false);
 			document.getElementById("dir").addEventListener("touchend", touch_interface, false);
-			document.getElementById("meio").addEventListener("touchend", touch_interface, false);
+			document.getElementById("peca").addEventListener("touchend", touch_interface, false);
 			
-			canvas.addEventListener("click", gira);
+			
+			// botão do meio gira a peça
+			document.getElementById("meio").addEventListener("click", gira);
 			
 			jogando = true;
 			peca();
+			desenha_canvas();
 			desenha();
 			
 			intervalo = setInterval(step, 300);			
