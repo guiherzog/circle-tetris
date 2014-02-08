@@ -164,7 +164,6 @@
 				
 				
 			}
-			drawFPS();
 		}
 			
 		for(var i = 0; i < jogo_h; i++) {
@@ -433,6 +432,7 @@
 			}
 			
 			desenha();
+			drawFPS();
 			
 			if(!pode) peca();
 		}
