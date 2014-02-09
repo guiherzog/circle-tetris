@@ -252,6 +252,9 @@
 				 peca_caindo_pos[3].x -= quantas/2;
 			}
 			
+			var giro_aleatorio = Math.floor(Math.random()*4);
+			while(giro_aleatorio--) gira();
+			
 			desenha();
 		}
 		
