@@ -52,7 +52,22 @@
 		var cores = ["#5a5858", "#ec747d", "#41c0a9"];
 		var lastCalledTime;
 		var fps;
+		
+		var mostra_fps = false;
 
+
+		function pause() {
+			if(jogando) {
+				document.getElementById("pause").style.display = "block";
+				clearInterval(intervalo);
+				jogando = false;
+			}
+			else {
+				document.getElementById("pause").style.display = "none";
+				intervalo = setInterval(step, 300);
+				jogando = true;
+			}
+		}
 
 		function drawFPS() {
 
@@ -63,7 +78,7 @@
 		  }
 		  delta = (new Date().getTime() - lastCalledTime)/1000;
 		  lastCalledTime = new Date().getTime();
-		  fps = parseInt(1/delta);
+		  fps = parseInt(1/delta, 10);
 
 		  var fps_div = document.getElementById("fps");
 		  fps_div.innerHTML = fps + " fps";
@@ -431,7 +446,7 @@
 			}
 			
 			desenha();
-			drawFPS();
+			if(mostra_fps) drawFPS();
 			
 			if(!pode) peca();
 		}
@@ -629,38 +644,40 @@
 		}
 		
 		var touch_interval_ids = {"esq": -1, "dir": -1, "peca": -1};
-		var touch_action_delay = 250;
+		var touch_action_delay = 200;
 		
 		//interface para traducao de touches para movimentos
 		//usa de timers (setInterval) para continuar a mover
 		//as pecas ate que o botao seja solto
-		function touch_interface(e) {			
-			//no primeiro touch, faz as teclas sumirem
-			if(!clicou){
-				primeiro_clique();
-			}
+		function touch_interface(e) {
+			if(jogando) {
+				//no primeiro touch, faz as teclas sumirem
+				if(!clicou){
+					primeiro_clique();
+				}
 			
-			//limpa os timers no inicio e final de touches
-			if(touch_interval_ids[e.currentTarget.id] != -1){ 
-				window.clearInterval(touch_interval_ids[e.currentTarget.id]);
-				touch_interval_ids[e.currentTarget.id] = -1;
-			}
+				//limpa os timers no inicio e final de touches
+				if(touch_interval_ids[e.currentTarget.id] != -1){ 
+					window.clearInterval(touch_interval_ids[e.currentTarget.id]);
+					touch_interval_ids[e.currentTarget.id] = -1;
+				}
 			
-			//se for o comeco de um touch, inicia e cadastra o id do timer e move
-			if(e.type == "touchstart"){
-				switch(e.currentTarget.id){
-				case "esq":
-					esquerda();
-					touch_interval_ids["esq"] = window.setInterval(esquerda, touch_action_delay);
-					break;
-				case "dir":
-					direita();
-					touch_interval_ids["dir"] = window.setInterval(direita, touch_action_delay);
-					break;
-				case "peca":
-					step();
-					touch_interval_ids["peca"] = window.setInterval(step, touch_action_delay);
-					break;
+				//se for o comeco de um touch, inicia e cadastra o id do timer e move
+				if(e.type == "touchstart"){
+					switch(e.currentTarget.id){
+					case "esq":
+						esquerda();
+						touch_interval_ids["esq"] = window.setInterval(esquerda, touch_action_delay);
+						break;
+					case "dir":
+						direita();
+						touch_interval_ids["dir"] = window.setInterval(direita, touch_action_delay);
+						break;
+					case "peca":
+						step();
+						touch_interval_ids["peca"] = window.setInterval(step, touch_action_delay);
+						break;
+					}
 				}
 			}
 		}
@@ -670,18 +687,22 @@
 		document.addEventListener("DOMContentLoaded", function() {
 			document.addEventListener("keypress", function(e) {
 			
-				// direita
-				if(e.keyCode == 39) direita();
+				// espaço
+				if(e.keyCode == 0 && e.charCode == 32) pause();
 				
-				// esquerda
-				else if(e.keyCode == 37) esquerda();
+				if(jogando) {
+					// direita
+					if(e.keyCode == 39) direita();
 				
-				// cima
-				else if(e.keyCode == 38) gira();
+					// esquerda
+					else if(e.keyCode == 37) esquerda();
 				
-				// baixo
-				else if(e.keyCode == 40) step();
+					// cima
+					else if(e.keyCode == 38) gira();
 				
+					// baixo
+					else if(e.keyCode == 40) step();
+				}
 			}, false);
 			
 			var canvas = document.getElementById("canvas");
@@ -702,12 +723,17 @@
 			
 			
 			// botão do meio gira a peça
-			document.getElementById("meio").addEventListener("click", gira);
+			document.getElementById("meio").addEventListener("click", gira, false);
+			
+			document.getElementById("pause-botao").addEventListener("click", pause, false);
+			document.getElementById("resume").addEventListener("click", pause, false);
+			
+			if(!mostra_fps) document.getElementById("fps").style.display = "none";
 			
 			jogando = true;
 			peca();
 			desenha_canvas();
 			desenha();
 			
-			intervalo = setInterval(step, 300);			
+			intervalo = setInterval(step, 300);
 		});

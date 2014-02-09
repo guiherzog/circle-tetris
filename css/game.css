@@ -74,7 +74,22 @@
 			z-index: 2;
 
 		}
-		#gameover
+		
+		#pause-botao {
+			position: absolute;
+			top: 0;
+			left: 0;
+			z-index: 3;
+			width: 15%;
+			height: 8%;
+			background: url('../img/pause_azul.png') no-repeat center center / auto 50%;
+		}
+		
+		#pause-botao:active {
+			background-color: #ddd;
+		}
+		
+		#gameover, #pause
 		{
 			display: none;
 			top:0;
@@ -118,32 +133,33 @@
 			height: 30%;
 			height: 12vw;
 		}
-		#gameover-menu, #play-again {
+		#quit, #play-again, #resume {
 			height: 120%;
 			width: 50%;
 			display: inline-block;
 			background: #FFA1A9;
 		}
-		
+		#quit a, #play-again a, #resume span {
+			display: block;
+			width: 100%;
+			height: 100%;
+			background: url('../img/quit.png') no-repeat center center / auto 60%;
+		}
 
 		#menu-gameover div:active{
 			background-color: white;
 
 		}
-		#gameover-menu a
-		{
-			display: block;
-			width: 100%;
-			height: 100%;
-		    background: url('../img/gameover-menu.png') no-repeat center center / auto 60%;
+		#quit a {
+			background-image: url('../img/gameover-menu.png');
 		}
-		#play-again a
-		{
-			display: block;
-			width: 100%;
-			height: 100%;
-		    background: url('../img/play-again.png') no-repeat center center / auto 60%;
+		#play-again a {
+			background-image: url('../img/play-again.png');
 		}
+		#resume span {
+			background-image: url('../img/play.png');
+		}
+		
 		nav
 		{
 		    margin-top:40%;
