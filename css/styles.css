@@ -23,7 +23,7 @@
     .logo
     {
       position: relative;
-      margin-top: 10%;
+      margin-top: 20%;
       width: 50%;
     }
     #circle-core
@@ -43,7 +43,7 @@
     @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
     nav
     {
-        margin-top:40%;
+        margin-top:20%;
     }
     .menu-button
     {

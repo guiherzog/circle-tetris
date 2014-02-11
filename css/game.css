@@ -10,6 +10,7 @@
 		*{
 			list-style: none;
 			font-family: GeoSans;
+			margin: 0 auto;
 		}
 		
 		#canvas, #peca {
@@ -109,7 +110,7 @@
 			height: 30%;
 			width: 70%;
 		}
-		#gameover-title
+		#gameover-title, #pause-title
 		{
 			font-size: 150%;
 			font-size: 8vw;
@@ -133,24 +134,48 @@
 			height: 30%;
 			height: 12vw;
 		}
-		#quit, #play-again, #resume {
+		.pause-container
+		{
+			color: #efefef;
+			position: absolute;
+			top: 30%;
+			left: 15%;
+			height: 20%;
+			width: 70%;
+		}
+		#pause-menu
+		{
+			font-size: 7.5vw;
+			width: 100%;
+			height: 30%;
+			height: 12vw;
+		}
+		#quit-pause, #resume, #restart
+		{
+			height: 120%;
+			width: 31.5%;
+			display: inline-block;
+			background: #FFA1A9;
+		}
+		#quit, #play-again
+		{
 			height: 120%;
 			width: 50%;
 			display: inline-block;
 			background: #FFA1A9;
 		}
-		#quit a, #play-again a, #resume span {
+		#quit a, #play-again a, #resume span, #restart a, #quit-pause a{
 			display: block;
 			width: 100%;
 			height: 100%;
 			background: url('../img/quit.png') no-repeat center center / auto 60%;
 		}
 
-		#menu-gameover div:active{
+		#menu-gameover, #pause-menu div:active{
 			background-color: white;
 
 		}
-		#quit a {
+		#quit a, #quit-pause a {
 			background-image: url('../img/gameover-menu.png');
 		}
 		#play-again a {
@@ -159,11 +184,15 @@
 		#resume span {
 			background-image: url('../img/play.png');
 		}
+		#restart a {
+			background-image: url('../img/play-again.png');
+		}
 		
 		nav
 		{
 		    margin-top:40%;
 		}
+
 		.menu-button
 		{
 		    color: #efefef ;
@@ -196,7 +225,7 @@
 			height: 100%;
 			display: block;
 			opacity: 1;
-			transition: opacity 0.5s ease-in-out;
+			transition: opacity 1s ease-in-out;
 			background-size: auto 40%;
 			background-repeat: no-repeat;
 			
