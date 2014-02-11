@@ -345,15 +345,13 @@
 			pontos_div.innerHTML = pontos + " pts";
 		}
 		
-		function step() {
-			
+		function step() {			
 			if(!jogando) {
 				clearInterval(intervalo);
 				gameover = document.getElementById("gameover");
 				pontos_final = document.getElementById("gameover-score");
 				pontos_final.innerHTML = pontos + " pts";
 				gameover.style.display = "block";
-
 			}
 			
 			
@@ -452,6 +450,8 @@
 			if(mostra_fps) drawFPS();
 			
 			if(!pode) peca();
+			
+			return pode;
 		}
 		
 		function esquerda() {
@@ -678,8 +678,8 @@
 							primeiro_clique();
 						break;
 					case "peca":
-						step();
-						touch_interval_ids["peca"] = window.setInterval(step, touch_action_delay);
+						//descer a peca enquanto "step" retornar true (peca nao colidir)
+						while(step());
 						break;
 					}
 				}
