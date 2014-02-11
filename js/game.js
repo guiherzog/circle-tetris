@@ -647,18 +647,13 @@
 		}
 		
 		var touch_interval_ids = {"esq": -1, "dir": -1, "peca": -1};
-		var touch_action_delay = 200;
+		var touch_action_delay = 100;
 		
 		//interface para traducao de touches para movimentos
 		//usa de timers (setInterval) para continuar a mover
 		//as pecas ate que o botao seja solto
 		function touch_interface(e) {
 			if(jogando) {
-				//no primeiro touch, faz as teclas sumirem
-				if(!clicou){
-					primeiro_clique();
-				}
-			
 				//limpa os timers no inicio e final de touches
 				if(touch_interval_ids[e.currentTarget.id] != -1){ 
 					window.clearInterval(touch_interval_ids[e.currentTarget.id]);
@@ -671,10 +666,16 @@
 					case "esq":
 						esquerda();
 						touch_interval_ids["esq"] = window.setInterval(esquerda, touch_action_delay);
+						//no primeiro touch, faz as teclas sumirem
+						if (!clicou)
+							primeiro_clique();
 						break;
 					case "dir":
 						direita();
 						touch_interval_ids["dir"] = window.setInterval(direita, touch_action_delay);
+						//no primeiro touch, faz as teclas sumirem
+						if (!clicou)
+							primeiro_clique();
 						break;
 					case "peca":
 						step();
@@ -737,6 +738,6 @@
 			peca();
 			desenha_canvas();
 			desenha();
-			
-			intervalo = setInterval(step, 300);
+				
+			intervalo = window.setInterval(step, 300);
 		});
