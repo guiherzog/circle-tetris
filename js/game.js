@@ -1,3 +1,5 @@
+		
+		// Atributos de configuração do Jogo
 		if(!window.devicePixelRatio) window.devicePixelRatio = 1;
 		
 		var largura_total = window.innerWidth * window.devicePixelRatio;
@@ -340,12 +342,15 @@
 			}
 		}
 		
+		// Desenha a pontuação na tela em modo Jogo
 		function desenha_pontos(){
 			var pontos_div = document.getElementById("pontos");
 			pontos_div.innerHTML = pontos + " pts";
 		}
 		
 		function step() {			
+		
+			// Se acabou o jogo, exibe a tela de Gameover
 			if(!jogando) {
 				clearInterval(intervalo);
 				gameover = document.getElementById("gameover");
@@ -354,9 +359,7 @@
 				gameover.style.display = "block";
 			}
 			
-			
 			var pode = true;
-			
 			for(var i = 0; i < peca_caindo_pos.length; i++) {
 				var x = peca_caindo_pos[i].x;
 				var y = peca_caindo_pos[i].y;
@@ -366,13 +369,13 @@
 					break;
 				}
 			}
-			
+			// Se puder aumenta o Y dela em 1 unidade ( fazendo ela ficar mais próxima do centro ).
 			if(pode) {
 				for(var i = 0; i < peca_caindo_pos.length; i++) {
 					y = peca_caindo_pos[i].y++;
 				}
 			}
-			// peca tocou em algo (para de cair)
+			// Peca tocou em algo (para de cair)
 			else {
 				for(var i = 0; i < peca_caindo_pos.length; i++) {
 					var x = peca_caindo_pos[i].x;
@@ -701,6 +704,11 @@
 		
 		var clicou = false;
 		
+		/*
+			"SETUP" DO JOGO
+		*/
+		
+		// LISTENERS DO TECLADO P/ DEBUG
 		document.addEventListener("DOMContentLoaded", function() {
 			document.addEventListener("keypress", function(e) {
 			
@@ -730,6 +738,7 @@
 			canvas_peca.width = largura;
 			canvas_peca.height = altura;
 			
+			// LISTENERS DO TOUCH
 			document.getElementById("esq").addEventListener("touchstart", touch_interface, false);
 			document.getElementById("dir").addEventListener("touchstart", touch_interface, false);
 			document.getElementById("peca").addEventListener("touchstart", touch_interface, false);
@@ -739,12 +748,12 @@
 			document.getElementById("peca").addEventListener("touchend", touch_interface, false);
 			
 			
-			// botão do meio gira a peça
+			// Botões de interação com o usuário
 			document.getElementById("meio").addEventListener("click", gira, false);
-			
 			document.getElementById("pause-botao").addEventListener("click", pause, false);
 			document.getElementById("resume").addEventListener("click", pause, false);
 			
+
 			if(!mostra_fps) document.getElementById("fps").style.display = "none";
 			
 			jogando = true;
@@ -752,5 +761,6 @@
 			desenha_canvas();
 			desenha();
 			
+			// Define o intervalo inicial em 300ms
 			intervalo = window.setInterval(step, 300);
 		});
