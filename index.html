@@ -6,7 +6,7 @@
 		<link rel="stylesheet" type="text/css" href="css/styles.css">
 	</head>
    
-	<body id="pageBody">
+	<body id="pageBody" >
 		<div class="logo">
 			<img src="img/circle-core.png" id="circle-core" alt="Circle Core">
 			<img src="img/circle-logo.png" id="img-logo" alt="Circle Tetris">
@@ -14,9 +14,14 @@
 		<nav> 
 			<ul>
 				<li class="menu-button"><a href="game.html">Jogar</a></li>
-				<li class="menu-button"><a href="highscores.html">Highscores</a></li> 
+				<li  id="highscore">
+					<div id="highscore-tag">Recorde</div>
+					<div id="highscore-value">NaN</div>
+				</li> 
 				<!-- <li class="menu-button"><a href="about.html">Sobre</a></li>  -->
 			</ul>
 		</nav>
 	</body>
+		<script src="js/highscore.js"></script>
+
 </html>

@@ -349,13 +349,6 @@
 				localStorage.setItem("highscore",pontos);
 				highscore = pontos;
 				gameover_title.innerHTML = "Novo Recorde!";
-
-				highscore_name.oncontrolselect = function () { return false; }; // Bloqueia a janela de ser redimensionada.
-				// Ao terminar de digitar salva em uma localStorage
-				highscore_name.onkeyup=function() {
-				    localStorage.setItem("highscore_name",highscore_name.innerHTML);
-				};
-
 			}
 		}		
 		function step() {			
@@ -756,7 +749,7 @@
 					// baixo
 					else if(e.keyCode == 40) step();
 
-					else if (e.keyCode == 13) pontos+=500;
+					//else if (e.keyCode == 13) pontos+=500;
 				}
 			}, false);
 			

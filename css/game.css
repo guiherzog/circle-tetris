@@ -158,6 +158,7 @@
 			left: 15%;
 			height: 20%;
 			width: 70%;
+			
 		}
 		#pause-menu
 		{
@@ -165,13 +166,18 @@
 			width: 100%;
 			height: 30%;
 			height: 12vw;
+			margin-left:3%;
+			
 		}
 		#quit-pause, #resume, #restart
 		{
 			height: 120%;
-			width: 31.5%;
+			width: 33.5%;
 			display: inline-block;
-			background: #FFA1A9;
+			background-color: #ec747d;
+			margin-left: -3%;
+			
+			
 		}
 		#quit, #play-again
 		{
@@ -187,7 +193,7 @@
 			background: url('../img/quit.png') no-repeat center center / auto 60%;
 		}
 
-		#menu-gameover, #pause-menu div:active{
+		#menu-gameover, #quit-pause a div:active{
 			background-color: white;
 
 		}
@@ -206,8 +212,6 @@
 			background-image: url('../img/play-again.png');
 		}
 
-		[contentEditable=true]:empty:not(:focus):before{
-		  content:attr(data-ph);
 		}
 		nav
 		{
