@@ -10,6 +10,7 @@
 		*{
 			list-style: none;
 			font-family: GeoSans;
+			margin: 0 auto;
 
 		}
 		
@@ -110,7 +111,14 @@
 			height: 30%;
 			width: 70%;
 		}
-		#gameover-title, #pause-title
+		
+		.gameover-container li
+		{
+		  	margin-left: -22%;
+		  	
+		}
+		
+		#gameover-title, #pause-title 
 		{
 			font-size: 150%;
 			font-size: 8vw;
@@ -126,11 +134,19 @@
 			text-align: right;
 			padding-right: 5%;
 		}
+		#highscore-name
+		{
+			font-size: 7.5vw;
+			line-height: 200%;
+			background-color: #41c0a9;
+			text-align: right;
+			padding-right: 5%;
+		}
 		#menu-gameover
 		{
 			font-size: 7.5vw;
 			text-align: right;
-			width: 100%;
+			width: 122%;
 			height: 30%;
 			height: 12vw;
 		}
@@ -177,9 +193,11 @@
 		}
 		#quit a, #quit-pause a {
 			background-image: url('../img/gameover-menu.png');
+			background-color: #ec747d;
 		}
 		#play-again a {
 			background-image: url('../img/play-again.png');
+			background-color: #ec747d;
 		}
 		#resume span {
 			background-image: url('../img/play.png');
@@ -187,7 +205,10 @@
 		#restart a {
 			background-image: url('../img/play-again.png');
 		}
-		
+
+		[contentEditable=true]:empty:not(:focus):before{
+		  content:attr(data-ph);
+		}
 		nav
 		{
 		    margin-top:40%;

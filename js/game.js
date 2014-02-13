@@ -4,6 +4,8 @@
 		
 		var largura_total = window.innerWidth * window.devicePixelRatio;
 		var altura_total = window.innerHeight * window.devicePixelRatio;
+
+
 		
 		var touch;
 		var touch_context;
@@ -183,17 +185,7 @@
 			}
 		}
 			
-		for(var i = 0; i < jogo_h; i++) {
-			jogo[i] = [];
-			jogo2[i] = [];
-			jogo_peca[i] = [];
-			
-			for(var j = 0; j < jogo_w; j++) {
-				jogo[i][j] = '.';
-				jogo2[i][j] = '.';
-				jogo_peca[i][j] = '.';
-			}
-		}
+
 		
 		function peca() {
 			peca_caindo = true;
@@ -347,16 +339,38 @@
 			var pontos_div = document.getElementById("pontos");
 			pontos_div.innerHTML = pontos + " pts";
 		}
-		
+
+		// Verifica se a pontuacão é maior que o Recorde.
+		function updateHighscore()
+		{
+			highscore = localStorage.getItem("highscore");
+			if (pontos > highscore)
+			{
+				localStorage.setItem("highscore",pontos);
+				highscore = pontos;
+				gameover_title.innerHTML = "Novo Recorde!";
+
+				highscore_name.oncontrolselect = function () { return false; }; // Bloqueia a janela de ser redimensionada.
+				// Ao terminar de digitar salva em uma localStorage
+				highscore_name.onkeyup=function() {
+				    localStorage.setItem("highscore_name",highscore_name.innerHTML);
+				};
+
+			}
+		}		
 		function step() {			
 		
 			// Se acabou o jogo, exibe a tela de Gameover
 			if(!jogando) {
 				clearInterval(intervalo);
-				gameover = document.getElementById("gameover");
-				pontos_final = document.getElementById("gameover-score");
 				pontos_final.innerHTML = pontos + " pts";
+				if (pontos > 9000 && pontos < 10000)
+				{
+					pontos_final.innerHTML = "It's Over " + pontos + "  pts!";		
+				}
 				gameover.style.display = "block";
+				updateHighscore();
+
 			}
 			
 			var pode = true;
@@ -445,6 +459,7 @@
 				window.clearInterval(intervalo);
 				intervalo = window.setInterval(step, tempo_intervalo);
 				
+
 				for(var i = 0; i < linhas_completas.length; i++) {
 					var linha = linhas_completas[i];
 					
@@ -693,7 +708,7 @@
 						break;
 					case "peca":
 						//descer a peca enquanto "step" retornar true (peca nao colidir)
-						//while(step()); Hard down desativado.
+						//while(step()); Hard drop desativado.
 						step();
 						touch_interval_ids["peca"] = window.setInterval(step, touch_action_delay_step);
 						break;
@@ -707,6 +722,19 @@
 		/*
 			"SETUP" DO JOGO
 		*/
+
+		// Inicializa os arrays c as configuracao do jogo.
+		for(var i = 0; i < jogo_h; i++) {
+			jogo[i] = [];
+			jogo2[i] = [];
+			jogo_peca[i] = [];
+			
+			for(var j = 0; j < jogo_w; j++) { 
+				jogo[i][j] = '.';
+				jogo2[i][j] = '.';
+				jogo_peca[i][j] = '.';
+			}
+		}
 		
 		// LISTENERS DO TECLADO P/ DEBUG
 		document.addEventListener("DOMContentLoaded", function() {
@@ -727,11 +755,20 @@
 				
 					// baixo
 					else if(e.keyCode == 40) step();
+
+					else if (e.keyCode == 13) pontos+=500;
 				}
 			}, false);
 			
 			var canvas = document.getElementById("canvas");
 			var canvas_peca = document.getElementById("peca");
+			
+			gameover = document.getElementById("gameover");
+			gameover_title = document.getElementById("gameover-title");
+			pontos_final = document.getElementById("gameover-score");
+			highscore_name = document.getElementById("highscore-name");
+				
+				
 			canvas.width = largura;
 			canvas.height = altura;
 			
