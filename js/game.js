@@ -431,6 +431,16 @@
 						break;
 				}
 				
+				/*
+					#dificuldade
+					MECANICA PARA DIFICULTAR O NÍVEL DO JOGO 
+					CONFORME A PONTUAÇÃO AUMENTA O INTERVALO DE TEMPO QUE AS PEÇAS DEMORAM PARA DESCER FICA MENOR.
+				*/
+				level = parseInt(pontos/1000);
+				if (level > 20) level = 20; // O nível máximo é 18, entao se o nivel passar disso ele fica no 18.
+				tempo_intervalo = 300 - (level)*10;
+				window.clearInterval(intervalo);
+				intervalo = window.setInterval(step, tempo_intervalo);
 				
 				for(var i = 0; i < linhas_completas.length; i++) {
 					var linha = linhas_completas[i];
@@ -647,7 +657,8 @@
 		}
 		
 		var touch_interval_ids = {"esq": -1, "dir": -1, "peca": -1};
-		var touch_action_delay = 100;
+		var touch_action_delay = 150;
+		var touch_action_delay_step = 50;
 		
 		//interface para traducao de touches para movimentos
 		//usa de timers (setInterval) para continuar a mover
@@ -679,7 +690,9 @@
 						break;
 					case "peca":
 						//descer a peca enquanto "step" retornar true (peca nao colidir)
-						while(step());
+						//while(step()); Hard down desativado.
+						step();
+						touch_interval_ids["peca"] = window.setInterval(step, touch_action_delay_step);
 						break;
 					}
 				}
@@ -738,6 +751,6 @@
 			peca();
 			desenha_canvas();
 			desenha();
-				
+			
 			intervalo = window.setInterval(step, 300);
 		});
