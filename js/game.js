@@ -56,6 +56,7 @@
 		var cores = ["#5a5858", "#ec747d", "#41c0a9"];
 		var lastCalledTime;
 		var fps;
+		var flag_highscore_updated = false;
 		
 		var mostra_fps = false;
 
@@ -343,26 +344,50 @@
 		// Verifica se a pontuacão é maior que o Recorde.
 		function updateHighscore()
 		{
-			highscore = localStorage.getItem("highscore");
-			if (pontos > highscore)
+			var HIGHSCORE_MAX_USERS = 10;
+			highscores = JSON.parse(localStorage.getItem("highscores"));
+			if (highscores == null)
 			{
-				localStorage.setItem("highscore",pontos);
-				highscore = pontos;
-				gameover_title.innerHTML = "Novo Recorde!";
+				console.log("Highscores Zerados")
+				var zero_highscore = [];
+				zero_highscore.push({'name':"",'score':0});
+				localStorage.setItem('highscores',JSON.stringify(zero_highscore));
 			}
+			console.log("updateHighscore");
+			for (var i = 0; i <highscores.length;i++)
+			{
+				console.log("Entrei no for "+(i+1)+" vezes");
+				var score = highscores[i].score;
+				if (pontos > score)
+				{
+					highscores.splice(i,0,{'name':prompt("Novo Recorde!\nDigite seu nome:"),'score':pontos});		
+					gameover_title.innerHTML = "Novo Recorde!";
+					break;
+				}
+			}
+			if (highscores.length > HIGHSCORE_MAX_USERS)
+				highscores.splice(10,highscores.length-HIGHSCORE_MAX_USERS);
+
+			// Coloca o objeto que contém a lista de pontuações de novo na localStorage;
+			localStorage.setItem('highscores',JSON.stringify(highscores));
 		}		
 		function step() {			
 		
 			// Se acabou o jogo, exibe a tela de Gameover
 			if(!jogando) {
+				
 				clearInterval(intervalo);
 				pontos_final.innerHTML = pontos + " pts";
 				if (pontos > 9000 && pontos < 10000)
-				{
 					pontos_final.innerHTML = "It's Over " + pontos + "  pts!";		
-				}
 				gameover.style.display = "block";
-				updateHighscore();
+
+				if (!flag_highscore_updated)
+				{
+					updateHighscore();
+					flag_highscore_updated = true;
+				}
+
 
 			}
 			
@@ -729,8 +754,10 @@
 			}
 		}
 		
-		// LISTENERS DO TECLADO P/ DEBUG
 		document.addEventListener("DOMContentLoaded", function() {
+			
+
+			// LISTENERS DO TECLADO P/ DEBUG
 			document.addEventListener("keypress", function(e) {
 			
 				// espaço
@@ -749,7 +776,9 @@
 					// baixo
 					else if(e.keyCode == 40) step();
 
-					//else if (e.keyCode == 13) pontos+=500;
+					else if (e.keyCode == 13) pontos+=500;
+
+					else if (e.keyCode == 8) jogando = false;
 				}
 			}, false);
 			
