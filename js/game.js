@@ -350,17 +350,17 @@
 			{
 				console.log("Highscores Zerados")
 				var zero_highscore = [];
-				zero_highscore.push({'name':"",'score':0});
+				zero_highscore.push({'name':prompt("Novo Recorde!\nDigite seu nome:"),'score':pontos});
 				localStorage.setItem('highscores',JSON.stringify(zero_highscore));
 			}
 			console.log("updateHighscore");
 			for (var i = 0; i <highscores.length;i++)
 			{
-				console.log("Entrei no for "+(i+1)+" vezes");
+//				console.log("Entrei no for "+(i+1)+" vezes");
 				var score = highscores[i].score;
 				if (pontos > score)
 				{
-					highscores.splice(i,0,{'name':prompt("Novo Recorde!\nDigite seu nome:"),'score':pontos});		
+					highscores.splice(i,0,{'name':prompt("Novo Recorde!\nDigite seu nome:"),'score':pontos});
 					gameover_title.innerHTML = "Novo Recorde!";
 					break;
 				}
