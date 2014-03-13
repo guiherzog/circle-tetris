@@ -49,6 +49,7 @@ body {
 #score {
 	font-size: 5vw;
 	color: #999;
+	text-align: right;
 }
 
 .highscore-item {
