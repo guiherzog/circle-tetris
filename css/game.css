@@ -102,6 +102,10 @@
 			height: 100%;
 			z-index: 3;
 		}
+		
+		#gameover ul {
+			padding: 0;
+		}
 		.gameover-container
 		{
 			color: #efefef;
@@ -110,12 +114,6 @@
 			left: 15%;
 			height: 30%;
 			width: 70%;
-		}
-		
-		.gameover-container li
-		{
-		  	margin-left: -22%;
-		  	
 		}
 		
 		#gameover-title, #pause-title 
@@ -146,7 +144,6 @@
 		{
 			font-size: 7.5vw;
 			text-align: right;
-			width: 122%;
 			height: 30%;
 			height: 12vw;
 		}
