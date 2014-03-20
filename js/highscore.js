@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function()
 		li_highscore[i] = document.createElement('li');		
 		leaderboardDiv.appendChild(li_highscore[i]);
 		li_highscore[i].className = 'highscore-item';
-		li_highscore[i].innerHTML = "<h3 align='center' id='name'> Sem recordes... </h3><p align='center'><br> Que tal jogar um pouco...?</p><div class='line-separator'></div>";
+		li_highscore[i].innerHTML = "<h3 align='center' id='name'>No highscore...</h3><p align='center'><br>How about completing some circles...?</p><div class='line-separator'></div>";
 	}
 	for (var i = 0; i <highscores.length;i++)
 	{
@@ -24,10 +24,25 @@ document.addEventListener("DOMContentLoaded", function()
 		var name = highscores[i].name;
 		if (score > 0)
 		{
-			li_highscore[i] = document.createElement('li');		
-			leaderboardDiv.appendChild(li_highscore[i]);
-			li_highscore[i].className = 'highscore-item';
-			li_highscore[i].innerHTML = "<h3 id='name'>"+(i+1)+"º - "+name+"</h3><h5 id='score'>"+score+" pontos</h5><div class='line-separator'></div>";
+			var li = document.createElement("li");
+			li.className = "highscore-item";
+
+			var h3 = document.createElement("h3");
+			h3.className = "name";
+			h3.appendChild(document.createTextNode((i+1) + ". " + name));
+
+			var h5 = document.createElement("h5");
+			h5.className = "score";
+			h5.appendChild(document.createTextNode(score + " pts"));
+
+			var div = document.createElement("div");
+			div.className = "line-separator";
+
+			li.appendChild(h3);
+			li.appendChild(h5);
+			li.appendChild(div);
+
+			leaderboardDiv.appendChild(li);
 		}
 	}
 			

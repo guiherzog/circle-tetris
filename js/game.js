@@ -348,29 +348,46 @@
 			highscores = JSON.parse(localStorage.getItem("highscores"));
 			if (highscores == null)
 			{
-				console.log("Highscores Zerados")
+				//console.log("Highscores Zerados")
 				var zero_highscore = [];
-				zero_highscore.push({'name':prompt("Novo Recorde!\nDigite seu nome:"),'score':pontos});
+				zero_highscore.push({'name':get_name(),'score':pontos});
 				localStorage.setItem('highscores',JSON.stringify(zero_highscore));
 			}
-			console.log("updateHighscore");
-			for (var i = 0; i <highscores.length;i++)
+			else 
 			{
-//				console.log("Entrei no for "+(i+1)+" vezes");
-				var score = highscores[i].score;
-				if (pontos > score)
+				var i;
+				for (i = 0; i <highscores.length;i++)
 				{
-					highscores.splice(i,0,{'name':prompt("Novo Recorde!\nDigite seu nome:"),'score':pontos});
-					gameover_title.innerHTML = "Novo Recorde!";
-					break;
+					var score = highscores[i].score;
+					if (pontos > score)
+					{
+						gameover_title.innerHTML = "Wow! Top 10!";
+						highscores.splice(i,0,{'name':get_name(),'score':pontos});
+						if ( i == 0)
+							gameover_title.innerHTML = "New highscore!";
+						break;
+					}
 				}
-			}
-			if (highscores.length > HIGHSCORE_MAX_USERS)
-				highscores.splice(10,highscores.length-HIGHSCORE_MAX_USERS);
+				
+				if  (i == highscores.length && highscores.length < HIGHSCORE_MAX_USERS && pontos > 0)
+				{
+					highscores.splice(i,0,{'name':get_name(),'score':pontos});
+					gameover_title.innerHTML = "Wow! Top 10!";
+				}	
+				if (highscores.length > HIGHSCORE_MAX_USERS)
+					highscores.splice(10,highscores.length-HIGHSCORE_MAX_USERS);
 
-			// Coloca o objeto que contém a lista de pontuações de novo na localStorage;
-			localStorage.setItem('highscores',JSON.stringify(highscores));
-		}		
+				// Coloca o objeto que contém a lista de pontuações de novo na localStorage;
+				localStorage.setItem('highscores',JSON.stringify(highscores));
+			}
+		}
+		function get_name()
+		{
+			var player_name =  prompt("New highscore!\nPlease, enter your name:");
+			if (player_name == null || player_name == "")
+				player_name = "Player";
+			return player_name;
+		}
 		function step() {			
 		
 			// Se acabou o jogo, exibe a tela de Gameover

@@ -42,11 +42,11 @@ body {
   background-color: #efefef;
 }
 
-#name {
+#name, .name {
 	font-size: 7vw;
 }
 
-#score {
+#score, .score {
 	font-size: 5vw;
 	color: #999;
 	text-align: right;
@@ -54,6 +54,10 @@ body {
 
 .highscore-item {
 	padding: 10px;
+}
+
+.highscore-item p {
+	font-size: 5vw;
 }
 
 .line-separator {
