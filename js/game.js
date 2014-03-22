@@ -190,7 +190,7 @@
 		
 		function peca() {
 			peca_caindo = true;
-			n = Math.floor(Math.random()*4);
+			n = Math.floor(Math.random()*7);
 			cor = Math.floor(Math.random()*3);
 			orientacao = Math.floor(Math.random()*2);
 			giro = 0;
@@ -236,6 +236,36 @@
 						{x: jogo_w-1, y: 2},
 						{x: jogo_w-1, y: 1},
 						{x: jogo_w-1, y: 0}
+					];
+					break;
+				// *
+				// ***
+				case 4:
+					peca_caindo_pos = [
+						{x: jogo_w-3, y: 1},
+						{x: jogo_w-2, y: 1},
+						{x: jogo_w-1, y: 1},
+						{x: jogo_w-3, y: 0}
+					];
+					break;
+				//  **
+				// **
+				case 5:
+					peca_caindo_pos = [
+						{x: jogo_w-3, y: 1},
+						{x: jogo_w-2, y: 1},
+						{x: jogo_w-2, y: 0},
+						{x: jogo_w-1, y: 0}
+					];
+					break;
+				// **
+				//  **
+				case 6:
+					peca_caindo_pos = [
+						{x: jogo_w-2, y: 1},
+						{x: jogo_w-1, y: 1},
+						{x: jogo_w-3, y: 0},
+						{x: jogo_w-2, y: 0}
 					];
 					break;
 			}
@@ -616,6 +646,12 @@
 					
 					pode = true;
 					break;
+					
+				// **
+				// **
+				case 1:
+					break;
+					
 				//   *
 				// ***
 				case 2:
@@ -648,6 +684,7 @@
 					
 					var pode = true;
 					break;
+					
 				// *
 				// *
 				// *
@@ -671,6 +708,85 @@
 					}
 					
 					pode = true;
+					break;
+					
+				// *
+				// ***
+				case 4:
+					switch(giro) {
+						case 0:
+							pn[0] = {x: p[0].x + 2, y: p[0].y + 1};
+							pn[1] = {x: p[1].x + 1, y: p[1].y};
+							pn[2] = {x: p[2].x,     y: p[2].y - 1};
+							pn[3] = {x: p[3].x + 1, y: p[3].y + 2};
+							break;
+						case 1:
+							pn[0] = {x: p[0].x,     y: p[0].y - 2};
+							pn[1] = {x: p[1].x - 1, y: p[1].y - 1};
+							pn[2] = {x: p[2].x - 2, y: p[2].y};
+							pn[3] = {x: p[3].x + 1, y: p[3].y - 1};
+							break;
+						case 2:
+							pn[0] = {x: p[0].x - 2, y: p[0].y};
+							pn[1] = {x: p[1].x - 1, y: p[1].y + 1};
+							pn[2] = {x: p[2].x,     y: p[2].y + 2};
+							pn[3] = {x: p[3].x - 1, y: p[3].y - 1};
+							break;
+						case 3:
+							pn[0] = {x: p[0].x,     y: p[0].y + 1};
+							pn[1] = {x: p[1].x + 1, y: p[1].y};
+							pn[2] = {x: p[2].x + 2, y: p[2].y - 1};
+							pn[3] = {x: p[3].x - 1, y: p[3].y};
+							break;
+					}
+					
+					var pode = true;
+					break;
+					
+				//  **
+				// **
+				case 5:
+					switch(giro) {
+						case 0:
+						case 2:
+							pn[0] = {x: p[0].x + 2, y: p[0].y + 1};
+							pn[1] = {x: p[1].x + 1, y: p[1].y};
+							pn[2] = {x: p[2].x,     y: p[2].y + 1};
+							pn[3] = {x: p[3].x - 1, y: p[3].y};
+							break;
+						case 1:
+						case 3:
+							pn[0] = {x: p[0].x - 2, y: p[0].y - 1};
+							pn[1] = {x: p[1].x - 1, y: p[1].y};
+							pn[2] = {x: p[2].x,     y: p[2].y - 1};
+							pn[3] = {x: p[3].x + 1, y: p[3].y};
+							break;
+					}
+					
+					var pode = true;
+					break;
+					
+				// **
+				//  **
+				case 6:
+					switch(giro) {
+						case 0:
+						case 2:
+							pn[0] = {x: p[0].x,     y: p[0].y};
+							pn[1] = {x: p[1].x - 1, y: p[1].y - 1};
+							pn[2] = {x: p[2].x,     y: p[2].y + 2};
+							pn[3] = {x: p[3].x - 1, y: p[3].y + 1};
+							break;
+						case 1:
+						case 3:
+							pn[0] = {x: p[0].x,     y: p[0].y};
+							pn[1] = {x: p[1].x + 1, y: p[1].y + 1};
+							pn[2] = {x: p[2].x,     y: p[2].y - 2};
+							pn[3] = {x: p[3].x + 1, y: p[3].y - 1};
+							break;
+					}
+					
+					var pode = true;
 					break;
 			}
 			
