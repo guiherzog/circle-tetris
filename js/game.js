@@ -371,17 +371,18 @@
 			pontos_div.innerHTML = pontos + " pts";
 		}
 
-		// Verifica se a pontuacão é maior que o Recorde.
 		function updateHighscore()
 		{
 			var HIGHSCORE_MAX_USERS = 10;
 			highscores = JSON.parse(localStorage.getItem("highscores"));
 			if (highscores == null)
 			{
-				//console.log("Highscores Zerados")
-				var zero_highscore = [];
-				zero_highscore.push({'name':get_name(),'score':pontos});
-				localStorage.setItem('highscores',JSON.stringify(zero_highscore));
+				if(pontos > 0) {
+					//console.log("Highscores Zerados")
+					var zero_highscore = [];
+					zero_highscore.push({'name':get_name(),'score':pontos});
+					localStorage.setItem('highscores',JSON.stringify(zero_highscore));
+				}
 			}
 			else 
 			{
