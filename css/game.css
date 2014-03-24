@@ -126,6 +126,7 @@
 		}
 		#gameover-score
 		{
+			font-size: 150%;
 			font-size: 7.5vw;
 			line-height: 200%;
 			background-color: #526e82;
@@ -163,21 +164,24 @@
 			width: 100%;
 			height: 30%;
 			height: 12vw;
-			margin-left:3%;
 			
 		}
 		#quit-pause, #resume, #restart
 		{
 			height: 120%;
-			width: 33.5%;
+			width: 33%;
 			display: inline-block;
 			background-color: #ec747d;
-			margin-left: -3%;
 				
 		}
-		#quit-pause a:active, #resume:active, #restart:active
+		
+		#resume {
+			width: 34%;
+		}
+		
+		#quit-pause a:active, #resume span:active, #restart a:active
 		{
-			background-color: white;
+			background-color: white !important;
 		}
 		#quit, #play-again
 		{
@@ -190,9 +194,10 @@
 			display: block;
 			width: 100%;
 			height: 100%;
+			min-height: 45px;
 			background: url('../img/quit.png') no-repeat center center / auto 60%;
 		}
-		#quit a:active,#play-again a:active
+		#quit a:active, #play-again a:active
 		{
 			background-color: white;
 		}
@@ -207,9 +212,11 @@
 		}
 		#resume span {
 			background-image: url('../img/play.png');
+			background-color: #ec747d;
 		}
 		#restart a {
 			background-image: url('../img/play-again.png');
+			background-color: #ec747d;
 		}
 
 		}

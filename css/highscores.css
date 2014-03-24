@@ -43,10 +43,12 @@ body {
 }
 
 #name, .name {
+	font-size: 140%;
 	font-size: 7vw;
 }
 
 #score, .score {
+	font-size: 100%;
 	font-size: 5vw;
 	color: #999;
 	text-align: right;
