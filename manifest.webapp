@@ -1,19 +1,21 @@
 {
   "name": "Circle Tetris",
-  "version":"0.1",
-  "description": "A new way to play Tetris.",
+  "version":"0.2",
+  "description": "A new and revolutionary way to play Tetris®.",
   "launch_path": "/index.html",
   "fullscreen": "true",
   "orientation": ["portrait"],
   "icons": {
+  	"32": "/img/icon/icon_32.png",
     "60": "/img/icon/icon_60.png",
     "90": "/img/icon/icon_90.png",
     "120": "/img/icon/icon_120.png",
-    "128": "/img/icon/icon_128.png"
+    "128": "/img/icon/icon_128.png",
+    "256": "/img/icon/icon_256.png"
   },
   "developer": {
     "name": "Guilherme Herzog & Eduardo Costa",
-    "url": "http://www.hertizog.com/circleTetris/"
+    "url": "https://github.com/guiherzog/circle-tetris"
   },
   
   "default_locale": "en-us"

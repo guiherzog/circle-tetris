@@ -847,15 +847,15 @@
 						esquerda();
 						touch_interval_ids["esq"] = window.setInterval(esquerda, touch_action_delay);
 						//no primeiro touch, faz as teclas sumirem
-						if (!clicou)
-							primeiro_clique();
+						//if (!clicou)
+						//	primeiro_clique();
 						break;
 					case "dir":
 						direita();
 						touch_interval_ids["dir"] = window.setInterval(direita, touch_action_delay);
 						//no primeiro touch, faz as teclas sumirem
-						if (!clicou)
-							primeiro_clique();
+						//if (!clicou)
+						//	primeiro_clique();
 						break;
 					case "peca":
 						//descer a peca enquanto "step" retornar true (peca nao colidir)
@@ -890,7 +890,7 @@
 		document.addEventListener("DOMContentLoaded", function() {
 			
 
-			// LISTENERS DO TECLADO P/ DEBUG
+			// Teclado
 			document.addEventListener("keypress", function(e) {
 			
 				// espaço
@@ -908,9 +908,11 @@
 				
 					// baixo
 					else if(e.keyCode == 40) step();
-
-					else if (e.keyCode == 13) pontos+=500;
-
+					
+					// enter
+					else if (e.keyCode == 13) pontos += 500;
+					
+					// backspace
 					else if (e.keyCode == 8) jogando = false;
 				}
 			}, false);
@@ -930,7 +932,7 @@
 			canvas_peca.width = largura;
 			canvas_peca.height = altura;
 			
-			// LISTENERS DO TOUCH
+			// Botões de controle do jogo
 			document.getElementById("esq").addEventListener("touchstart", touch_interface, false);
 			document.getElementById("dir").addEventListener("touchstart", touch_interface, false);
 			document.getElementById("peca").addEventListener("touchstart", touch_interface, false);
