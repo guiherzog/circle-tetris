@@ -53,7 +53,8 @@
 		var jogando = true;
 		var intervalo;
 		var giro = 0;
-		var cores = ["#5a5858", "#ec747d", "#41c0a9"];
+		/*				blue	   pink 	 green				*/
+		var cores = ["#526e82", "#ec747d", "#41c0a9"];
 		var lastCalledTime;
 		var fps;
 		var flag_highscore_updated = false;
