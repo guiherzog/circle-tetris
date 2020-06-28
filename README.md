@@ -1,8 +1,9 @@
 Circle Tetris for Web/Android.
 =============
 
-A circular Tetris game developed for the old Firefox OS using HTML5 and Vanilla JS during a 72-hours Hackathon promoted by Mozilla. 
-It won the first place as the best mobile application.
+A circular Tetris game developed for the old Firefox OS using HTML5 and Vanilla JS during a **72-hours Hackathon** promoted by Mozilla in 2013 at the event Campus Party BR.
+
+It won the ••first place•• as the **best•• mobile application.
 
 > It only runs properly on smartphones.
 
