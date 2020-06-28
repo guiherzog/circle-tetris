@@ -2,11 +2,9 @@
 		// Atributos de configuração do Jogo
 		if(!window.devicePixelRatio) window.devicePixelRatio = 1;
 		
-		var largura_total = window.innerWidth * window.devicePixelRatio;
-		var altura_total = window.innerHeight * window.devicePixelRatio;
+		const largura_total = window.innerWidth * window.devicePixelRatio;
+		const altura_total = window.innerHeight * window.devicePixelRatio;
 
-
-		
 		var touch;
 		var touch_context;
 		var last_pt = null;

@@ -9,7 +9,7 @@ It won the first place as the best mobile application.
 The following image shows the demo of the Firefox version:
 
 ![Menu Demo](https://github.com/guiherzog/circle-tetris/blob/master/psd/Menu.png?raw=true)
-![Game Demo](https://github.com/guiherzog/curveAnimation/blob/master/psd/Game.png?raw=true)
+![Game Demo](https://github.com/guiherzog/circle-tetris/blob/master/psd/Game.png?raw=true)
 
 Below you can download and play the ported and improved Android version:
 
